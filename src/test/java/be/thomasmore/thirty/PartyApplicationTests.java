@@ -1,4 +1,4 @@
-package be.thomasmore.party;
+package be.thomasmore.thirty;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -1,6 +1,6 @@
-package be.thomasmore.party.repositories;
+package be.thomasmore.thirty.repositories;
 
-import be.thomasmore.party.model.Artist;
+import be.thomasmore.thirty.model.Artist;
 import org.springframework.data.repository.CrudRepository;
 
 public interface ArtistRepository extends CrudRepository<Artist, Integer> {

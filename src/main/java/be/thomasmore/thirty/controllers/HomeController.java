@@ -1,9 +1,9 @@
-package be.thomasmore.party.controllers;
+package be.thomasmore.thirty.controllers;
 
-import be.thomasmore.party.model.Artist;
-import be.thomasmore.party.model.Venue;
-import be.thomasmore.party.repositories.ArtistRepository;
-import be.thomasmore.party.repositories.VenueRepository;
+import be.thomasmore.thirty.model.Artist;
+import be.thomasmore.thirty.model.Venue;
+import be.thomasmore.thirty.repositories.ArtistRepository;
+import be.thomasmore.thirty.repositories.VenueRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

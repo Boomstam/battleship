@@ -1,4 +1,4 @@
-package be.thomasmore.party.model;
+package be.thomasmore.thirty.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
