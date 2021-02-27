@@ -6,6 +6,8 @@ import java.util.Map;
 
 public class Board {
 
+    private final static int defaultBoardSize = 20;
+
     private int width;
     private int height;
 
@@ -13,7 +15,7 @@ public class Board {
     private Tile[] tiles;
 
     public Board(){
-        this(50, 50);
+        this(defaultBoardSize, defaultBoardSize);
     }
 
     public Board(int width, int height){

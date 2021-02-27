@@ -1,5 +1,5 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang=approachlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Homepagina</title>
@@ -8,11 +8,12 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
-<!-- th:style="'background:url(' + @{/<path-to-image>} + ');'"-->
+<div th:replace="fragments/info :: footer">Hier komt de footer</div>
 <div class="board"
      th:style="|grid-template-rows: repeat(${board.width}, ${tileSize}px);
         grid-template-columns: repeat(${board.height}, ${tileSize}px);|">
-    <!--<script>
+    <script>
+        var clicked;
         function clicked(x, y){
             $.ajax({
                 url : 'start',
@@ -22,16 +23,20 @@
                 async : true,
                 complete : function(data) {
                     console.log(data.responseText);
+                    //location.reload();
                 }
             });//this.getAttribute('data-parameter1')
+            $('#info').text(x + " " + y);
+            //$('#info').load(document.URL +  ' #info');
+            //$( "#info" ).load(window.location.href + " #info" );
         }
     </script>
     <div class="tile" th:each="tile, status: ${board.tiles}">
-            <img th:data-parameter1="${tile.location.x}"
-                 th:data-parameter2="${tile.location.y}"
-                 th:onclick="clicked(this.getAttribute('data-parameter1'), this.getAttribute('data-parameter2'));"
-                 src="../static/img/tile.png" th:src="@{img/tile.png}" alt="Image of a tile"/>
-    </div>-->
+        <img th:data-parameter1="${tile.location.x}"
+             th:data-parameter2="${tile.location.y}"
+             th:onclick="clicked(this.getAttribute('data-parameter1'), this.getAttribute('data-parameter2'));"
+             src="../static/img/tile.png" th:src="@{img/tile.png}" alt="Image of a tile"/>
 </div>
+
 </body>
 </html>
