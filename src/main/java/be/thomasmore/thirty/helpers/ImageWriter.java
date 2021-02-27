@@ -13,18 +13,15 @@ public class ImageWriter {
 
     private static final String imageFormat = "png";
     private static final String imagePath = "src" + File.separator + "main" + File.separator + "resources" +
-            File.separator + "static" + File.separator + "tmp" + File.separator + "tile.png";
+            File.separator + "static" + File.separator + "img" + File.separator + "tile.png";
 
     private static final Color grassColor = new Color(11, 111, 11);
 
-    public void writeImage(){
-
+    public static void writeImage(int width, int height){
 
         byte[] aByteArray = {(byte)grassColor.getRed(),(byte)grassColor.getGreen(),(byte)grassColor.getBlue()};
         //byte[] aByteArray = {0xa,0x2,0xf,(byte)0xff,(byte)0xff,(byte)0xff};
-        byte[] colors = repeat(aByteArray, aByteArray.length * 100);
-        int width = 10;
-        int height = 10;
+        byte[] colors = repeat(aByteArray, aByteArray.length * (width * height));
 
         DataBuffer buffer = new DataBufferByte(colors, colors.length);
 
@@ -33,11 +30,11 @@ public class ImageWriter {
         ColorModel cm = new ComponentColorModel(ColorModel.getRGBdefault().getColorSpace(), false, true, Transparency.OPAQUE, DataBuffer.TYPE_BYTE);
         BufferedImage image = new BufferedImage(cm, raster, true, null);
 
-        try {
+        /*try {
             Files.deleteIfExists(Path.of(imagePath));
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }*/
         try {
             ImageIO.write(image, imageFormat, new File(imagePath));
         } catch (Exception e){

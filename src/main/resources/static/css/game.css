@@ -1,0 +1,8 @@
+.board{
+    display: grid;
+    gap: 1px;
+}
+
+.tile:hover{
+    opacity: 0.5;
+}
