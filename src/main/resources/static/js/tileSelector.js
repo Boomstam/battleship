@@ -1,7 +1,7 @@
 
 function clicked(x, y){
     $.ajax({
-        url : 'start',
+        url : 'tileClick',
         method : 'GET',
         data: { x: x, y: y},
         //https://stackoverflow.com/questions/44488002/js-deprecation-synchronous-xmlhttprequest-on-the-main-thread-is-deprecated-be

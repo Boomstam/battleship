@@ -6,3 +6,14 @@
 .tile:hover{
     opacity: 0.5;
 }
+
+.tileContent{
+    width: 20px;
+    heigth: 20px;
+    /*padding: 1px;*/
+    padding-top: 20px;
+}
+
+.grass{
+    background: green;
+}

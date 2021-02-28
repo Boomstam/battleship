@@ -20,7 +20,8 @@ public class GameController {
     @GetMapping("game")
     public String game(Model model) {
         onFirstRun();
-        model.addAttribute(board);;
+        model.addAttribute("started", false);
+        model.addAttribute(board);
         model.addAttribute("tileSize", imgSize);
         return "game";
     }
@@ -34,11 +35,20 @@ public class GameController {
         }
     }
 
-    @GetMapping(value="/start")
-    public void start(@RequestParam("x") float rawX, @RequestParam("y") float rawY){
+    @GetMapping(value="/tileClick")
+    public void tileClick(@RequestParam("x") float rawX, @RequestParam("y") float rawY){
         int x = (int)rawX;
         int y = (int)rawY;
         System.out.print("clicked tile:" + x + "_" + y);
         currentLocation.setLocation(x, y);
+    }
+
+    @GetMapping("game/start")
+    public String start(Model model) {
+        onFirstRun();
+        model.addAttribute(board);
+        model.addAttribute("tileSize", imgSize);
+        model.addAttribute("started", true);
+        return "game";
     }
 }

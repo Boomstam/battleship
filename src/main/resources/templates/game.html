@@ -8,18 +8,28 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
-<div th:replace="fragments/info :: footer">Hier komt de footer</div>
-<div class="board"
+<div th:replace="fragments/menu :: menu">Hier komt het top menu</div>
+<script src="../static/js/tileSelector.png" type="text/javascript" th:src="@{/js/tileSelector.js}"></script>
+<div  class="board"
      th:style="|grid-template-rows: repeat(${board.width}, ${tileSize}px);
         grid-template-columns: repeat(${board.height}, ${tileSize}px);|">
-
-    <script src="../static/img/tileSelector.png" type="text/javascript" th:src="@{/js/tileSelector.js}"></script>
     <div class="tile" th:each="tile, status: ${board.tiles}">
         <img th:data-parameter1="${tile.location.x}"
              th:data-parameter2="${tile.location.y}"
              th:onclick="clicked(this.getAttribute('data-parameter1'), this.getAttribute('data-parameter2'));"
-             src="../static/img/tile.png" th:src="@{img/tile.png}" alt="Image of a tile"/>
+             th:src="@{/img/tile.png}" alt="Image of a tile"/>
+    </div>
 </div>
-
+    <div  class="board"
+          th:style="|grid-template-rows: repeat(${board.width}, ${tileSize}px);
+        grid-template-columns: repeat(${board.height}, ${tileSize}px);|">
+    <div class="tile" th:each="tile, status: ${board.tiles}">
+        <div th:data-parameter1="${tile.location.x}"
+             th:data-parameter2="${tile.location.y}"
+             th:onclick="clicked(this.getAttribute('data-parameter1'), this.getAttribute('data-parameter2'));"
+             class="tileContent grass"></div>
+    </div>
+</div>
+    <div th:replace="fragments/info :: info">Hier komt de info</div>
 </body>
 </html>
