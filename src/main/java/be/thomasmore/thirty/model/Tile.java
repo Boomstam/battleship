@@ -1,4 +1,4 @@
-package be.thomasmore.thirty.gameLogic;
+package be.thomasmore.thirty.model;
 
 import java.awt.*;
 import java.util.Objects;
