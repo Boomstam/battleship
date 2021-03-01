@@ -12,6 +12,8 @@ import java.io.Serializable;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
+import java.util.Objects;
 
 public class WeaponWrapper implements CompositeUserType {
     @Override
@@ -25,8 +27,19 @@ public class WeaponWrapper implements CompositeUserType {
     }
 
     @Override
-    public Object getPropertyValue(Object o, int i) throws HibernateException {
-        return null;
+    public Object getPropertyValue(Object component, int property) throws HibernateException {
+        Weapon weapon = (Weapon) component;
+
+        switch (property) {
+            case 0:
+                return weapon.getType();
+            case 1:
+                return weapon.getRange();
+            case 2:
+                return weapon.getAmmo();
+        }
+        throw new IllegalArgumentException(property + " is an invalid property index for class type "
+                + component.getClass().getName());
     }
 
     @Override
@@ -51,21 +64,27 @@ public class WeaponWrapper implements CompositeUserType {
 
     @Override
     public Object nullSafeGet(ResultSet resultSet, String[] strings, SharedSessionContractImplementor sharedSessionContractImplementor, Object o) throws HibernateException, SQLException {
-        int weaponType = resultSet.getInt(strings[0]);
-
         if (resultSet.wasNull())
             return null;
-
+        int weaponType = resultSet.getInt(strings[0]);
         int range = resultSet.getInt(strings[1]);
         int ammo = resultSet.getInt(strings[2]);
         Weapon weapon = new Weapon(weaponType, range, ammo);
-
         return weapon;
     }
 
     @Override
-    public void nullSafeSet(PreparedStatement preparedStatement, Object o, int i, SharedSessionContractImplementor sharedSessionContractImplementor) throws HibernateException, SQLException {
-
+    public void nullSafeSet(PreparedStatement preparedStatement, Object o, int index, SharedSessionContractImplementor sharedSessionContractImplementor) throws HibernateException, SQLException {
+        if (Objects.isNull(o)) {
+            preparedStatement.setNull(index, Types.INTEGER);
+            preparedStatement.setNull(index + 1, Types.INTEGER);
+            preparedStatement.setNull(index + 2, Types.INTEGER);
+        } else {
+            Weapon weapon = (Weapon) o;
+            preparedStatement.setInt(index,weapon.getType().ordinal());
+            preparedStatement.setInt(index+1,weapon.getRange());
+            preparedStatement.setInt(index+2,weapon.getAmmo());
+        }
     }
 
     @Override
@@ -80,16 +99,16 @@ public class WeaponWrapper implements CompositeUserType {
 
     @Override
     public Serializable disassemble(Object o, SharedSessionContractImplementor sharedSessionContractImplementor) throws HibernateException {
-        return null;
+        return (Serializable)o;
     }
 
     @Override
     public Object assemble(Serializable serializable, SharedSessionContractImplementor sharedSessionContractImplementor, Object o) throws HibernateException {
-        return null;
+        return o;
     }
 
     @Override
     public Object replace(Object o, Object o1, SharedSessionContractImplementor sharedSessionContractImplementor, Object o2) throws HibernateException {
-        return null;
+        return o2;
     }
 }

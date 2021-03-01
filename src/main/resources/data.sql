@@ -1,7 +1,6 @@
 insert into SHIP (
-ID, SHIP_TYPE, AMOUNT)
-values(1, 'Frigate', 2
-);
+ID, SHIP_TYPE, AMOUNT, WEAPON_TYPE, WEAPON_RANGE, WEAPON_AMMO)
+values(1, 'Frigate', 2, 0, 5, 10);
 
 insert into VENUE (
 ID, VENUE_NAME, LINK_MORE_INFO, CAPACITY,

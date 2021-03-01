@@ -1,7 +1,5 @@
 package be.thomasmore.thirty.model;
 
-import org.hibernate.annotations.Type;
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -12,16 +10,21 @@ public class Ship {
     private String shipType;
     private int amount;
     private int size;
-    @Type(type = "be.thomasmore.model.WeaponWrapper")
-    private Weapon weapon;
+    private int weaponType;
+    private int weaponRange;
+    private int ordnance;
 
     public Ship(){
 
     }
 
-    public Ship(String shipType, int amount){
+    public Ship(String shipType, int amount, int size, int weaponType, int weaponRange, int ordnance){
         this.shipType = shipType;
         this.amount = amount;
+        this.size = size;
+        this.weaponType = weaponType;
+        this.weaponRange = weaponRange;
+        this.ordnance = ordnance;
     }
 
     public String getShipType() {
@@ -38,6 +41,26 @@ public class Ship {
                 "id=" + id +
                 ", shipType='" + shipType + '\'' +
                 ", amount=" + amount +
+                ", size=" + size +
+                ", weaponType=" + weaponType +
+                ", weaponRange=" + weaponRange +
+                ", ordnance=" + ordnance +
                 '}';
+    }
+
+    public int getWeaponType() {
+        return weaponType;
+    }
+
+    public int getWeaponRange() {
+        return weaponRange;
+    }
+
+    public int getOrdnance() {
+        return ordnance;
+    }
+
+    public void setOrdnance(int ordnance) {
+        this.ordnance = ordnance;
     }
 }
