@@ -2,8 +2,8 @@ package be.thomasmore.thirty.controllers;
 
 import be.thomasmore.thirty.model.Board;
 import be.thomasmore.thirty.model.Ship;
+import be.thomasmore.thirty.model.ShipClass;
 import be.thomasmore.thirty.repositories.ShipRepository;
-import be.thomasmore.thirty.repositories.VenueRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 //https://stackoverflow.com/questions/34896877/call-controller-method-from-jsp-button-in-spring-mvc
 @Controller
@@ -52,11 +53,15 @@ public class GameController {
     @GetMapping("game/start")
     public String start(Model model) {
         onFirstRun();
-        Iterable<Ship> ships = shipRepository.findAll();
-        for(Ship ship : ships){
-            System.out.print(ship.toString());
+        Iterable<ShipClass> shipClasses = shipRepository.findAll();
+        ArrayList<Ship> ships = new ArrayList<>();
+        for(ShipClass shipClass : shipClasses){
+            System.out.print(shipClass.toString());
+            Ship ship = new Ship(shipClass);
+            ships.add(ship);
         }
         model.addAttribute(board);
+        model.addAttribute(ships);
         model.addAttribute("tileSize", imgSize);
         model.addAttribute("started", true);
         return "game";

@@ -1,9 +1,9 @@
 package be.thomasmore.thirty.repositories;
 
-import be.thomasmore.thirty.model.Ship;
+import be.thomasmore.thirty.model.ShipClass;
 import org.springframework.data.repository.CrudRepository;
 
-public interface ShipRepository extends CrudRepository<Ship, Integer> {
+public interface ShipRepository extends CrudRepository<ShipClass, Integer> {
     //Iterable<Ship> findByShipType(String shipType);
     /*Iterable<Venue> findByOutdoor(boolean isOutdoor);
     Iterable<Venue> findByIndoor(boolean isIndoor);
