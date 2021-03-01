@@ -1,5 +1,7 @@
 package be.thomasmore.thirty.model;
 
+import org.hibernate.annotations.Type;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -9,6 +11,9 @@ public class Ship {
     private int id;
     private String shipType;
     private int amount;
+    private int size;
+    @Type(type = "be.thomasmore.model.WeaponWrapper")
+    private Weapon weapon;
 
     public Ship(){
 
