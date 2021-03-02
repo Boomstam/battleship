@@ -10,6 +10,7 @@
 <body>
 <div th:replace="fragments/menu :: menu">Hier komt het top menu</div>
 <script src="../static/js/tileSelector.png" type="text/javascript" th:src="@{/js/tileSelector.js}"></script>
+<div class="game">
     <div  class="board"
           th:style="|grid-template-rows: repeat(${board.width}, ${tileSize}px);
         grid-template-columns: repeat(${board.height}, ${tileSize}px);|"
@@ -19,6 +20,13 @@
              th:data-parameter2="${tile.location.y}"
              th:onclick="clicked(this.getAttribute('data-parameter1'), this.getAttribute('data-parameter2'));"
              class="tileContent water"></div>
+    </div>
+        <div class="ships">
+            <div class="ship" th:each="ship, status: ${ships}">
+                <div class="tileContent shipContent"
+                    th:text="|${ship.toString()}|"></div>
+            </div>
+        </div>
     </div>
 </div>
     <div th:replace="fragments/info :: info">Hier komt de info</div>

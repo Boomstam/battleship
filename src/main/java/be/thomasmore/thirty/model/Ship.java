@@ -5,7 +5,7 @@ import java.util.Arrays;
 public class Ship {
     private int initiative;
     private String shipType;
-    private int amount;
+    private int index;
     private int shipSize;
     private int speed;
     private WeaponType weaponType;
@@ -13,15 +13,15 @@ public class Ship {
     private int currentOrdnance;
     private int[] health;
 
-    public Ship(ShipClass shipClass) {
-        this(shipClass.getInitiative(), shipClass.getShipType(), shipClass.getAmount(), shipClass.getShipSize(), shipClass.getSpeed(), WeaponType.values()[shipClass.getWeaponType()],
+    public Ship(ShipClass shipClass, int index) {
+        this(shipClass.getInitiative(), shipClass.getShipType(), index, shipClass.getShipSize(), shipClass.getSpeed(), WeaponType.values()[shipClass.getWeaponType()],
                 shipClass.getWeaponRange(), shipClass.getOrdnance(), initHealth(shipClass.getShipSize(), shipClass.getStartHealth()));
     }
 
-    public Ship(int initiative, String shipType, int amount, int shipSize, int speed, WeaponType weaponType, int weaponRange, int currentOrdnance, int[] health) {
+    public Ship(int initiative, String shipType, int index, int shipSize, int speed, WeaponType weaponType, int weaponRange, int currentOrdnance, int[] health) {
         this.initiative = initiative;
         this.shipType = shipType;
-        this.amount = amount;
+        this.index = index;
         this.shipSize = shipSize;
         this.speed = speed;
         this.weaponType = weaponType;
@@ -43,7 +43,7 @@ public class Ship {
         return "Ship{" +
                 "initiative=" + initiative +
                 ", shipType='" + shipType + '\'' +
-                ", amount=" + amount +
+                ", index=" + index +
                 ", shipSize=" + shipSize +
                 ", speed=" + speed +
                 ", weaponType=" + weaponType +
@@ -69,12 +69,8 @@ public class Ship {
         this.shipType = shipType;
     }
 
-    public int getAmount() {
-        return amount;
-    }
-
-    public void setAmount(int amount) {
-        this.amount = amount;
+    public int getIndex() {
+        return index;
     }
 
     public int getShipSize() {

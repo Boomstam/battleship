@@ -57,11 +57,13 @@ public class GameController {
         ArrayList<Ship> ships = new ArrayList<>();
         for(ShipClass shipClass : shipClasses){
             System.out.print(shipClass.toString());
-            Ship ship = new Ship(shipClass);
-            ships.add(ship);
+            for(int i = 0; i < shipClass.getAmount(); i++){
+                Ship ship = new Ship(shipClass, i);
+                ships.add(ship);
+            }
         }
         model.addAttribute(board);
-        model.addAttribute(ships);
+        model.addAttribute("ships", ships);
         model.addAttribute("tileSize", imgSize);
         model.addAttribute("started", true);
         return "game";
