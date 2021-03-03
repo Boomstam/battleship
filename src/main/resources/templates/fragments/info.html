@@ -6,9 +6,15 @@
 </head>
 <body>
 <div th:fragment="info">
-    <footer>
-        <footer-text id="info">Info</footer-text>
-    </footer>
+    <div th:if="${started}">
+        <div id="selectedTile">No tile selected </div>
+        <div id="hasShip"></div>
+        <div id="shipType"></div>
+        <div id="initiative"></div>
+        <div id="weaponType"></div>
+        <div id="weaponRange"></div>
+        <div id="direction"></div>
+    </div>
 </div>
 </body>
 </html>

@@ -3,11 +3,11 @@
     gap: 1px;
 }
 
-.tile:hover{
+.tiles:hover{
     opacity: 0.5;
 }
 
-.tileContent{
+.tile{
     width: 20px;
     heigth: 20px;
     padding-top: 20px;

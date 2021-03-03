@@ -8,7 +8,7 @@ values(2, 'Frigate', 3, 2, 8, 3, 4, 6, 2);
 
 insert into SHIP_CLASS (
 INITIATIVE, SHIP_TYPE, AMOUNT, SHIP_SIZE, SPEED, WEAPON_TYPE, WEAPON_RANGE, ORDNANCE, START_HEALTH)
-values(3, 'Carrier', 1, 3, 3, 1, 30, 2, 3);
+values(3, 'Carrier', 1, 4, 3, 1, 30, 2, 3);
 
 insert into SHIP_CLASS (
 INITIATIVE, SHIP_TYPE, AMOUNT, SHIP_SIZE, SPEED, WEAPON_TYPE, WEAPON_RANGE, ORDNANCE, START_HEALTH)
@@ -16,4 +16,4 @@ values(4, 'Destroyer', 4, 3, 6, 0, 8, 10, 2);
 
 insert into SHIP_CLASS (
 INITIATIVE, SHIP_TYPE, AMOUNT, SHIP_SIZE, SPEED, WEAPON_TYPE, WEAPON_RANGE, ORDNANCE, START_HEALTH)
-values(5, 'Cruiser', 2, 3, 4, 0, 12, 15, 3);
+values(5, 'Cruiser', 2, 4, 4, 0, 12, 15, 3);

@@ -37,7 +37,6 @@ public class GameController {
             model.addAttribute("started", false);
             return "game";
         }
-        System.out.print(width + height);
         board = new Board(width, height);
         Iterable<ShipClass> shipClasses = shipRepository.findAll();
         ArrayList<Ship> ships = shipCreator.getShips(shipClasses, board);

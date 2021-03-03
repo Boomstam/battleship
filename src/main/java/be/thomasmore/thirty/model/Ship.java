@@ -1,5 +1,9 @@
 package be.thomasmore.thirty.model;
 
+import be.thomasmore.thirty.helpers.Direction;
+
+import java.awt.*;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Ship {
@@ -103,5 +107,36 @@ public class Ship {
 
     public Segment[] getSegments(){
         return segments;
+    }
+
+    public ArrayList<Point> locationsInRange(Board board){
+        Point[] perpendicularDirections = Direction.perpendicularDirections(getDirectionType());
+        ArrayList<Point> foundLocations = new ArrayList<>();
+        for(int segmentIndex = 0; segmentIndex < segments.length; segmentIndex++){
+            Point segmentLocation = segments[segmentIndex].getLocation();
+            for(int rangeIndex = 1; rangeIndex <= weaponRange; rangeIndex++){
+                for(int perpDirIndex = 0; perpDirIndex < perpendicularDirections.length; perpDirIndex++){
+                    Point perpDir = perpendicularDirections[perpDirIndex];
+                    Point location = new Point(segmentLocation.x + (perpDir.x * (rangeIndex)),
+                                               segmentLocation.y + (perpDir.y * (rangeIndex)));
+                    if(board.hasTileAt(location)){
+                        foundLocations.add(location);
+                    }
+                }
+            }
+        }
+        return foundLocations;
+    }
+
+    public int getDirection(){
+        Point first = segments[0].getLocation();
+        Point second = segments[1].getLocation();
+        int direction = Direction.getDirectionTo(first, second);
+        return direction;
+    }
+
+    public Direction getDirectionType(){
+        int direction = getDirection();
+        return Direction.values()[direction];
     }
 }

@@ -1,5 +1,8 @@
+var coorSeparator = "_";
 
-function clicked(x, y, hasShip){
+function clicked(x, y, hasShip, shipType, initiative, weaponType, weaponRange, direction){
+    x = parseInt(x);
+    y = parseInt(y);
     $.ajax({
         url : 'tileClick',
         method : 'GET',
@@ -9,10 +12,23 @@ function clicked(x, y, hasShip){
             console.log(data.responseText);
         }
     });
-    //$('#info').text(x + " " + y + " " + board.tiles);
-    $('#info').text(x + " " + y + " " + hasShip);
-
+    $('#selectedTile').text(x + " " + y);
+    if(hasShip === "true"){
+        $('#hasShip').text("Ship");
+    } else{
+        $('#hasShip').text("Open ocean");
+    }
+    $('#shipType').text(shipType);
+    $('#initiative').text(initiative);
+    $('#weaponType').text(weaponType);
+    $('#weaponRange').text(weaponRange);
+    $('#direction').text(direction);
+    id = tileId(x, y);
+    console.log(id);
+    $(id).text('o');
 }
 
-//$('#info').load(document.URL +  ' #info');
-//$( "#info" ).load(window.location.href + " #info" );
+function tileId(x, y){
+    id = "#" + x + coorSeparator + y;
+    return id;
+}

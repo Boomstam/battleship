@@ -1,5 +1,7 @@
 package be.thomasmore.thirty.model;
 
+import be.thomasmore.thirty.helpers.PointHelpers;
+
 import java.awt.*;
 import java.util.Objects;
 
@@ -51,5 +53,9 @@ public class Tile {
 
     public void removeShip(){
         segment = null;
+    }
+
+    public String locationStr(){
+        return PointHelpers.pointStrFormat(location);
     }
 }

@@ -1,5 +1,7 @@
 package be.thomasmore.thirty.model;
 
+import be.thomasmore.thirty.helpers.Direction;
+
 import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
@@ -8,13 +10,6 @@ import java.util.Random;
 public class Board {
 
     private final static int maxNumIterations = 9999;
-
-    private final static Point[] directions = {
-        new Point(-1, 0),
-        new Point(1, 0),
-        new Point(0, 1),
-        new Point(0, -1),
-    };
 
     private int width;
     private int height;
@@ -105,7 +100,7 @@ public class Board {
             if(tile.hasSegment()){
                 continue;
             }
-            Point direction = nextDirection();
+            Point direction = Direction.nextDirection();
             Point[] segments = segmentLocations(point, direction, size);
             if(segments != null){
                 return segments;
@@ -134,12 +129,5 @@ public class Board {
 
     private Point translated(Point origin, Point translation){
         return new Point(origin.x + translation.x, origin.y + translation.y);
-    }
-
-    private Point nextDirection(){
-        Random rand = new Random();
-        int nextIndex = rand.nextInt(directions.length);
-        Point direction = directions[nextIndex];
-        return direction;
     }
 }
