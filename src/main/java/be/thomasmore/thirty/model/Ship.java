@@ -11,14 +11,14 @@ public class Ship {
     private WeaponType weaponType;
     private int weaponRange;
     private int currentOrdnance;
-    private int[] health;
+    private Segment[] segments;
 
     public Ship(ShipClass shipClass, int index) {
         this(shipClass.getInitiative(), shipClass.getShipType(), index, shipClass.getShipSize(), shipClass.getSpeed(), WeaponType.values()[shipClass.getWeaponType()],
-                shipClass.getWeaponRange(), shipClass.getOrdnance(), initHealth(shipClass.getShipSize(), shipClass.getStartHealth()));
+                shipClass.getWeaponRange(), shipClass.getOrdnance(), shipClass.getStartHealth());
     }
 
-    public Ship(int initiative, String shipType, int index, int shipSize, int speed, WeaponType weaponType, int weaponRange, int currentOrdnance, int[] health) {
+    public Ship(int initiative, String shipType, int index, int shipSize, int speed, WeaponType weaponType, int weaponRange, int currentOrdnance, int startHealth) {
         this.initiative = initiative;
         this.shipType = shipType;
         this.index = index;
@@ -27,15 +27,10 @@ public class Ship {
         this.weaponType = weaponType;
         this.weaponRange = weaponRange;
         this.currentOrdnance = currentOrdnance;
-        this.health = health;
-    }
-
-    private static int[] initHealth(int shipSize, int startHealth){
-        int[] health = new int[shipSize];
-        for(int i = 0; i < shipSize; i++){
-            health[i] = startHealth;
+        segments = new Segment[shipSize];
+        for (int i = 0; i < shipSize; i++){
+            segments[i] = new Segment(startHealth);
         }
-        return health;
     }
 
     @Override
@@ -49,7 +44,7 @@ public class Ship {
                 ", weaponType=" + weaponType +
                 ", weaponRange=" + weaponRange +
                 ", currentOrdnance=" + currentOrdnance +
-                ", health=" + Arrays.toString(health) +
+                ", segments=" + Arrays.toString(segments) +
                 '}';
     }
 
@@ -57,16 +52,8 @@ public class Ship {
         return initiative;
     }
 
-    public void setInitiative(int initiative) {
-        this.initiative = initiative;
-    }
-
     public String getShipType() {
         return shipType;
-    }
-
-    public void setShipType(String shipType) {
-        this.shipType = shipType;
     }
 
     public int getIndex() {
@@ -77,47 +64,36 @@ public class Ship {
         return shipSize;
     }
 
-    public void setShipSize(int shipSize) {
-        this.shipSize = shipSize;
-    }
-
     public int getSpeed() {
         return speed;
-    }
-
-    public void setSpeed(int speed) {
-        this.speed = speed;
     }
 
     public WeaponType getWeaponType() {
         return weaponType;
     }
 
-    public void setWeaponType(WeaponType weaponType) {
-        this.weaponType = weaponType;
-    }
-
     public int getWeaponRange() {
         return weaponRange;
-    }
-
-    public void setWeaponRange(int weaponRange) {
-        this.weaponRange = weaponRange;
     }
 
     public int getCurrentOrdnance() {
         return currentOrdnance;
     }
 
-    public void setCurrentOrdnance(int currentOrdnance) {
-        this.currentOrdnance = currentOrdnance;
+    public void decrementOrdnance() {
+        currentOrdnance = currentOrdnance--;
     }
 
-    public int[] getHealth() {
-        return health;
+    public void lift(){
+        for(Segment segment : segments){
+            if(segment.getTile() != null){
+                segment.getTile().removeShip();
+                segment.setTile(null);
+            }
+        }
     }
 
-    public void setHealth(int[] health) {
-        this.health = health;
+    public void setSegments(Segment[] segments){
+        this.segments = segments;
     }
 }

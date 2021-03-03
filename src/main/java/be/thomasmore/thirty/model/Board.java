@@ -1,12 +1,23 @@
 package be.thomasmore.thirty.model;
 
 import java.awt.*;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 public class Board {
 
+    private final static int maxNumIterations = 9999;
     private final static int defaultBoardSize = 20;
+
+    private final static Point[] directions = {
+        new Point(-1, 0),
+        new Point(1, 0),
+        new Point(0, 1),
+        new Point(0, -1),
+    };
 
     private int width;
     private int height;
@@ -31,8 +42,15 @@ public class Board {
         return tiles;
     }
 
-    public Tile getTileAt(Point location){
+    public Tile getTileAt(Point location) throws Exception {
+        if(tileMap.containsKey(location) == false){
+            throw new Exception("Tile " + location + " not found");
+        }
         return tileMap.get(location);
+    }
+
+    public boolean hasTileAt(Point location){
+        return tileMap.containsKey(location);
     }
 
     public Tile getTileAt(int x, int y){
@@ -54,5 +72,57 @@ public class Board {
         }
     }
 
+    public void place(Ship ship, Point location){
 
+    }
+
+    public Point[] nextFreeShipSpace(int size) throws Exception {
+        Random rand = new Random();
+        int iteration = 0;
+        while (iteration < maxNumIterations){
+            iteration++;
+            int x = rand.nextInt(width);
+            int y = rand.nextInt(height);
+            Point point = new Point(x, y);
+            Tile tile = getTileAt(point);
+            if(tile.hasShip()){
+                continue;
+            }
+            Point direction = nextDirection();
+            Point[] segments = segmentLocations(point, direction, size);
+            if(segments != null){
+                return segments;
+            }
+        }
+        throw new Exception("No free ship space found");
+    }
+
+    private Point[] segmentLocations(Point point, Point direction, int size){
+        Point[] locations = new Point[size];
+        Point currentLocation = point;
+        for (int i = 0; i < size; i++){
+            currentLocation = translated(currentLocation, direction);
+            try {
+                Tile tile = getTileAt(currentLocation);
+                if(tile.hasShip()) {
+                    return null;
+                }
+            } catch (Exception e){
+                return null;
+            }
+            locations[i] = (Point)currentLocation.clone();
+        }
+        return locations;
+    }
+
+    private Point translated(Point origin, Point translation){
+        return new Point(origin.x + translation.x, origin.y + translation.y);
+    }
+
+    private Point nextDirection(){
+        Random rand = new Random();
+        int nextIndex = rand.nextInt(directions.length);
+        Point direction = directions[nextIndex];
+        return direction;
+    }
 }

@@ -21,12 +21,12 @@
              th:onclick="clicked(this.getAttribute('data-parameter1'), this.getAttribute('data-parameter2'));"
              class="tileContent water"></div>
     </div>
-        <div class="ships">
+        <!--<div class="ships">
             <div class="ship" th:each="ship, status: ${ships}">
                 <div class="tileContent shipContent"
                     th:text="|${ship.toString()}|"></div>
             </div>
-        </div>
+        </div>-->
     </div>
 </div>
     <div th:replace="fragments/info :: info">Hier komt de info</div>

@@ -1,8 +1,6 @@
 package be.thomasmore.thirty.controllers;
 
-import be.thomasmore.thirty.model.Board;
-import be.thomasmore.thirty.model.Ship;
-import be.thomasmore.thirty.model.ShipClass;
+import be.thomasmore.thirty.model.*;
 import be.thomasmore.thirty.repositories.ShipRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -37,7 +35,6 @@ public class GameController {
         if(isFirstRun){
             //ImageWriter.writeImage(imgSize, imgSize);
             board = new Board();
-
             isFirstRun = false;
         }
     }
@@ -54,18 +51,44 @@ public class GameController {
     public String start(Model model) {
         onFirstRun();
         Iterable<ShipClass> shipClasses = shipRepository.findAll();
-        ArrayList<Ship> ships = new ArrayList<>();
-        for(ShipClass shipClass : shipClasses){
-            System.out.print(shipClass.toString());
-            for(int i = 0; i < shipClass.getAmount(); i++){
-                Ship ship = new Ship(shipClass, i);
-                ships.add(ship);
-            }
-        }
+        ArrayList<Ship> ships = getShips(shipClasses);
         model.addAttribute(board);
         model.addAttribute("ships", ships);
         model.addAttribute("tileSize", imgSize);
         model.addAttribute("started", true);
         return "game";
+    }
+
+    private ArrayList<Ship> getShips(Iterable<ShipClass> shipClasses) {
+        ArrayList<Ship> ships = new ArrayList<>();
+        for(ShipClass shipClass : shipClasses){
+            //System.out.print(shipClass.toString());
+            for(int i = 0; i < shipClass.getAmount(); i++){
+                Ship ship = new Ship(shipClass, i);
+                ships.add(ship);
+                try {
+                    Point[] segmentLocations = board.nextFreeShipSpace(ship.getShipSize());
+                    Segment[] segments = getSegmentsAt(segmentLocations, shipClass.getStartHealth());
+                    ship.setSegments(segments);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        }
+        return ships;
+    }
+
+    private Segment[] getSegmentsAt(Point[] points, int startHealth){
+        Segment[] segments = new Segment[points.length];
+        for(int i = 0; i < points.length; i++){
+            Point point = points[i];
+            try {
+                Tile tile = board.getTileAt(point);
+                segments[i] = new Segment(tile, startHealth);
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+        return segments;
     }
 }
