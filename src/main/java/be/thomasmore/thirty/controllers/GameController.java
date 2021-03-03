@@ -22,22 +22,23 @@ public class GameController {
 
     private Point currentLocation = new Point(0, 0);
 
-    @GetMapping("game")
+    /*@GetMapping("game")
     public String game(Model model) {
-        onFirstRun();
+        //onFirstRun();
+        //board = new Board();
         model.addAttribute("started", false);
-        model.addAttribute(board);
+        //model.addAttribute(board);
         model.addAttribute("tileSize", imgSize);
         return "game";
-    }
+    }*/
 
-    private void onFirstRun(){
+    /*private void onFirstRun(){
         if(isFirstRun){
             //ImageWriter.writeImage(imgSize, imgSize);
             board = new Board();
             isFirstRun = false;
         }
-    }
+    }*/
 
     @GetMapping(value="/tileClick")
     public void tileClick(@RequestParam("x") float rawX, @RequestParam("y") float rawY){
@@ -47,9 +48,22 @@ public class GameController {
         currentLocation.setLocation(x, y);
     }
 
-    @GetMapping("game/start")
-    public String start(Model model) {
-        onFirstRun();
+    @GetMapping("/game")
+    //@GetMapping(value="/start")
+    public String start(@RequestParam(required = false) Integer width,
+                        @RequestParam(required = false) Integer height,
+                        Model model) {
+        if(width == null || height == null){
+            //board = new Board();
+            model.addAttribute("started", false);
+            //model.addAttribute(board);
+            //model.addAttribute("tileSize", imgSize);
+            return "game";
+        }
+    //public String start(Model model) {
+        //onFirstRun();
+        System.out.print(width + height);
+        board = new Board(width, height);
         Iterable<ShipClass> shipClasses = shipRepository.findAll();
         ArrayList<Ship> ships = getShips(shipClasses);
         model.addAttribute(board);
@@ -62,14 +76,11 @@ public class GameController {
     private ArrayList<Ship> getShips(Iterable<ShipClass> shipClasses) {
         ArrayList<Ship> ships = new ArrayList<>();
         for(ShipClass shipClass : shipClasses){
-            //System.out.print(shipClass.toString());
             for(int i = 0; i < shipClass.getAmount(); i++){
                 Ship ship = new Ship(shipClass, i);
                 ships.add(ship);
                 try {
-                    Point[] segmentLocations = board.nextFreeShipSpace(ship.getShipSize());
-                    Segment[] segments = getSegmentsAt(segmentLocations, shipClass.getStartHealth());
-                    ship.setSegments(segments);
+                    placeShip(ship);
                 }catch (Exception e){
                     e.printStackTrace();
                 }
@@ -78,17 +89,21 @@ public class GameController {
         return ships;
     }
 
-    private Segment[] getSegmentsAt(Point[] points, int startHealth){
+    private void placeShip(Ship ship) throws Exception {
+        Point[] segmentLocations = board.nextFreeShipSpace(ship.getShipSize());
+        board.place(ship, segmentLocations);
+    }
+
+    private void initSegments(Ship ship, Point[] points){
         Segment[] segments = new Segment[points.length];
         for(int i = 0; i < points.length; i++){
             Point point = points[i];
             try {
                 Tile tile = board.getTileAt(point);
-                segments[i] = new Segment(tile, startHealth);
+                ship.setSegmentTile(tile, i);
             } catch (Exception e){
                 e.printStackTrace();
             }
         }
-        return segments;
     }
 }

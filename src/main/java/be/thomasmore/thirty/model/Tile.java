@@ -6,7 +6,7 @@ import java.util.Objects;
 public class Tile {
 
     private Point location;
-    private Ship ship;
+    private Segment segment;
 
     public Tile(int x, int y) {
         location = new Point(x, y);
@@ -34,22 +34,22 @@ public class Tile {
         return Objects.hash(location);
     }
 
-    public Ship getShip() {
-        return ship;
+    public Segment getSegment() {
+        return segment;
     }
 
-    public void setShip(Ship ship) {
-        this.ship = ship;
+    public void setSegment(Segment segment) {
+        this.segment = segment;
     }
 
     public boolean hasShip(){
-        if(ship == null){
+        if(segment == null){
             return false;
         }
         return true;
     }
 
     public void removeShip(){
-        ship = null;
+        segment = null;
     }
 }

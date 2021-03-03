@@ -1,8 +1,6 @@
 package be.thomasmore.thirty.model;
 
 import java.awt.*;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -10,7 +8,6 @@ import java.util.Random;
 public class Board {
 
     private final static int maxNumIterations = 9999;
-    private final static int defaultBoardSize = 20;
 
     private final static Point[] directions = {
         new Point(-1, 0),
@@ -24,10 +21,6 @@ public class Board {
 
     private Map<Point, Tile> tileMap;
     private Tile[] tiles;
-
-    public Board(){
-        this(defaultBoardSize, defaultBoardSize);
-    }
 
     public Board(int width, int height){
         this.width = width;
@@ -53,6 +46,14 @@ public class Board {
         return tileMap.containsKey(location);
     }
 
+    public boolean hasShipAt(Point location)throws Exception {
+        if(tileMap.containsKey(location) == false){
+            throw new Exception("Tile " + location + " doesn't exist");
+        }
+        Tile tile = tileMap.get(location);
+        return tile.hasShip();
+    }
+
     public Tile getTileAt(int x, int y){
         Point location = new Point(x, y);
         return tileMap.get(location);
@@ -72,8 +73,18 @@ public class Board {
         }
     }
 
-    public void place(Ship ship, Point location){
-
+    public void place(Ship ship, Point[] segmentLocations) throws Exception {
+        for(int i = 0; i < segmentLocations.length; i++){
+            Segment segment = ship.getSegments()[i];
+            Point location = segmentLocations[i];
+            try {
+                Tile tile = tileMap.get(location);
+                segment.setTile(tile);
+                tile.setSegment(segment);
+            } catch (Exception e){
+                throw new Exception("Can't place ship, segment location out of bounds " + segment);
+            }
+        }
     }
 
     public Point[] nextFreeShipSpace(int size) throws Exception {

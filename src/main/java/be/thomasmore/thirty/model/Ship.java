@@ -29,7 +29,7 @@ public class Ship {
         this.currentOrdnance = currentOrdnance;
         segments = new Segment[shipSize];
         for (int i = 0; i < shipSize; i++){
-            segments[i] = new Segment(startHealth);
+            segments[i] = new Segment(this, startHealth);
         }
     }
 
@@ -95,5 +95,13 @@ public class Ship {
 
     public void setSegments(Segment[] segments){
         this.segments = segments;
+    }
+
+    public void setSegmentTile(Tile tile, int i){
+        this.segments[i].setTile(tile);
+    }
+
+    public Segment[] getSegments(){
+        return segments;
     }
 }

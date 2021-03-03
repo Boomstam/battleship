@@ -3,10 +3,12 @@ package be.thomasmore.thirty.model;
 import java.awt.*;
 
 public class Segment {
+    private Ship ship;
     private Tile tile;
     private int health;
 
-    public Segment(int startHealth) {
+    public Segment(Ship ship, int startHealth) {
+        this.ship = ship;
         health = startHealth;
     }
 
