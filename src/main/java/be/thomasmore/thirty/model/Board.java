@@ -46,17 +46,23 @@ public class Board {
         return tileMap.containsKey(location);
     }
 
+    public Tile getTileAt(int x, int y){
+        Point location = new Point(x, y);
+        return tileMap.get(location);
+    }
+
     public boolean hasShipAt(Point location)throws Exception {
         if(tileMap.containsKey(location) == false){
             throw new Exception("Tile " + location + " doesn't exist");
         }
         Tile tile = tileMap.get(location);
-        return tile.hasShip();
+        return tile.hasSegment();
     }
 
-    public Tile getTileAt(int x, int y){
-        Point location = new Point(x, y);
-        return tileMap.get(location);
+    public Segment getSegmentAt(Point location){
+        //Point location = new Point(x, y);
+        Tile tile = tileMap.get(location);
+        return tile.getSegment();
     }
 
     private void createTiles(){
@@ -96,7 +102,7 @@ public class Board {
             int y = rand.nextInt(height);
             Point point = new Point(x, y);
             Tile tile = getTileAt(point);
-            if(tile.hasShip()){
+            if(tile.hasSegment()){
                 continue;
             }
             Point direction = nextDirection();
@@ -115,7 +121,7 @@ public class Board {
             currentLocation = translated(currentLocation, direction);
             try {
                 Tile tile = getTileAt(currentLocation);
-                if(tile.hasShip()) {
+                if(tile.hasSegment()) {
                     return null;
                 }
             } catch (Exception e){

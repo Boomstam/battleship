@@ -1,17 +1,18 @@
 
-function clicked(x, y){
+function clicked(x, y, hasShip){
     $.ajax({
         url : 'tileClick',
         method : 'GET',
         data: { x: x, y: y},
-        //https://stackoverflow.com/questions/44488002/js-deprecation-synchronous-xmlhttprequest-on-the-main-thread-is-deprecated-be
         async : true,
         complete : function(data) {
             console.log(data.responseText);
-            //location.reload();
         }
-    });//this.getAttribute('data-parameter1')
-    $('#info').text(x + " " + y);
-    //$('#info').load(document.URL +  ' #info');
-    //$( "#info" ).load(window.location.href + " #info" );
+    });
+    //$('#info').text(x + " " + y + " " + board.tiles);
+    $('#info').text(x + " " + y + " " + hasShip);
+
 }
+
+//$('#info').load(document.URL +  ' #info');
+//$( "#info" ).load(window.location.href + " #info" );

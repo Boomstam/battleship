@@ -10,11 +10,14 @@
 .tileContent{
     width: 20px;
     heigth: 20px;
-    /*padding: 1px;*/
     padding-top: 20px;
+    opacity: 0.5;
 }
 
 .water{
-    opacity: 0.5;
     background: royalblue;
+}
+
+.ship{
+    background: orangered;
 }

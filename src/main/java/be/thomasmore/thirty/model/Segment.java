@@ -12,11 +12,6 @@ public class Segment {
         health = startHealth;
     }
 
-    public Segment(Tile tile, int startHealth) {
-        this.tile = tile;
-        health = startHealth;
-    }
-
     public Tile getTile() {
         return tile;
     }
@@ -35,5 +30,9 @@ public class Segment {
 
     public Point getLocation(){
         return tile.getLocation();
+    }
+
+    public Ship getShip() {
+        return ship;
     }
 }

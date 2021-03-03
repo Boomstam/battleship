@@ -18,17 +18,15 @@
     <div class="tile" th:each="tile, status: ${board.tiles}">
         <div th:data-parameter1="${tile.location.x}"
              th:data-parameter2="${tile.location.y}"
-             th:onclick="clicked(this.getAttribute('data-parameter1'), this.getAttribute('data-parameter2'));"
-             class="tileContent water">
-            <span th:if="${board.hasShipAt(tile.location)}">Q</span>
+             th:data-parameter3="${board.hasShipAt(tile.location)}"
+             th:data-parameter4="${board.getSegmentAt(tile.location)}"
+             th:onclick="clicked(this.getAttribute('data-parameter1'),
+                                 this.getAttribute('data-parameter2'),
+                                 this.getAttribute('data-parameter3'));"
+             class="tileContent"
+             th:classappend="${board.hasShipAt(tile.location) ? 'ship' : 'water'}">
         </div>
     </div>
-        <div class="ships">
-            <div class="ship" th:each="ship, status: ${ships}">
-                <div class="tileContent shipContent"
-                    th:text="|${ship.toString()}|"></div>
-            </div>
-        </div>
     </div>
 </div>
     <div th:replace="fragments/info :: info">Hier komt de info</div>

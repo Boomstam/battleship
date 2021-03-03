@@ -42,7 +42,7 @@ public class Tile {
         this.segment = segment;
     }
 
-    public boolean hasShip(){
+    public boolean hasSegment(){
         if(segment == null){
             return false;
         }
