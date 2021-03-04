@@ -23,9 +23,9 @@ function clicked(x, y, hasShip, shipType, initiative, weaponType, weaponRange, d
     $('#weaponType').text(weaponType);
     $('#weaponRange').text(weaponRange);
     $('#direction').text(direction);
-    id = tileId(x, y);
+    /*id = tileId(x, y);
     console.log(id);
-    $(id).text('o');
+    $(id).text('o');*/
 }
 
 function tileId(x, y){

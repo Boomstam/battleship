@@ -39,7 +39,8 @@
                                  this.getAttribute('data-parameter8'));"
              th:id="${tile.locationStr()}"
              class="tile"
-             th:classappend="${board.hasShipAt(tile.location) ? 'ship' : 'water'}">
+             th:classappend="${board.hasShipAt(tile.location) ? 'ship' : 'water'}"
+             th:text="${board.hasShipAt(tile.location) ? '-' : '~'}">
         </div>
     </div>
     </div>

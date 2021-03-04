@@ -10,8 +10,10 @@
 .tile{
     width: 20px;
     heigth: 20px;
-    padding-top: 20px;
+    /*padding-top: 20px;*/
+    text-align: center;
     opacity: 0.5;
+    /*font-size: 5px;*/
 }
 
 .water{

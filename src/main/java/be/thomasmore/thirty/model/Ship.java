@@ -128,6 +128,8 @@ public class Ship {
         return foundLocations;
     }
 
+    public String formattedLocationsInRange()
+
     public int getDirection(){
         Point first = segments[0].getLocation();
         Point second = segments[1].getLocation();
