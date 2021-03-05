@@ -8,16 +8,11 @@ public class PointHelpers {
     private final static String separator = "_";
     private final static String arraySeparator = "-";
 
-    public static Point pointFromString(String pointString){
+    public static Point pointFromString(String pointString) throws Exception{
         String[] coors = pointString.split(separator);
-        try {
-            int x = Integer.parseInt(coors[0]);
-            int y = Integer.parseInt(coors[1]);
-            return new Point(x, y);
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-        return null;
+        int x = Integer.parseInt(coors[0]);
+        int y = Integer.parseInt(coors[1]);
+        return new Point(x, y);
     }
 
     public static String pointStrFormat(Point point){
@@ -28,7 +23,7 @@ public class PointHelpers {
         String str = "";
         for(int i = 0; i < points.length; i++){
             Point point = points[i];
-            str = str + point.toString();
+            str = str + pointStrFormat(point);
             if(i != points.length - 1){
                 str = str + arraySeparator;
             }
@@ -36,7 +31,13 @@ public class PointHelpers {
         return str;
     }
 
-    public static Point[] pointArrayFromString(String string){
-
+    public static Point[] pointArrayFromString(String string) throws Exception{
+        String[] pointStrings = string.split(arraySeparator);
+        Point[] points = new Point[pointStrings.length];
+        for(int i = 0; i < points.length; i++){
+            Point point = pointFromString(pointStrings[i]);
+            points[i] = point;
+        }
+        return points;
     }
 }

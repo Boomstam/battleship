@@ -6,9 +6,18 @@
 </head>
 <body>
 <div th:fragment="info">
+    <script src="../static/js/commandTransmitter.js" type="text/javascript" th:src="@{/js/commandTransmitter.js}"></script>
     <div th:if="${started}">
         <div id="selectedTile">No tile selected </div>
         <div id="hasShip"></div>
+        <div id="commandButtons" style="display: none">
+            <div id="commands" th:each="command, status: ${commands}">
+                <div class="command" th:text="${command}"
+                     th:data-parameter1="${status.index}"
+                     th:onclick="transmitCommand(this.getAttribute('data-parameter1'));">
+                </div>
+            </div>
+        </div>
         <div id="shipType"></div>
         <div id="initiative"></div>
         <div id="weaponType"></div>

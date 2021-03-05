@@ -29,6 +29,13 @@ public class GameController {
         currentLocation.setLocation(x, y);
     }
 
+    @GetMapping(value="/handleCommand")
+    public void handleCommand(@RequestParam("shipId") float shipId, @RequestParam("commandIndex") float commandIndex){
+        int x = (int)shipId;
+        int y = (int)commandIndex;
+        System.out.print("handle command:" + x + "_" + y);
+    }
+
     @GetMapping("/game")
     public String start(@RequestParam(required = false) Integer width,
                         @RequestParam(required = false) Integer height,
@@ -43,6 +50,7 @@ public class GameController {
         model.addAttribute(board);
         model.addAttribute("ships", ships);
         model.addAttribute("tileSize", imgSize);
+        model.addAttribute("commands", Command.values());
         model.addAttribute("started", true);
         return "game";
     }

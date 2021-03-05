@@ -23,3 +23,11 @@
 .ship{
     background: orangered;
 }
+
+.command{
+    background: #D0CFEC;
+    cursor: default;
+}
+.command:hover{
+    cursor: pointer;
+}

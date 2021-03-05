@@ -1,12 +1,14 @@
 package be.thomasmore.thirty.model;
 
 import be.thomasmore.thirty.helpers.Direction;
+import be.thomasmore.thirty.helpers.PointHelpers;
 
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Ship {
+    private int id;
     private int initiative;
     private String shipType;
     private int index;
@@ -17,12 +19,16 @@ public class Ship {
     private int currentOrdnance;
     private Segment[] segments;
 
+    private static int currentNumShips = 0;
+
     public Ship(ShipClass shipClass, int index) {
         this(shipClass.getInitiative(), shipClass.getShipType(), index, shipClass.getShipSize(), shipClass.getSpeed(), WeaponType.values()[shipClass.getWeaponType()],
                 shipClass.getWeaponRange(), shipClass.getOrdnance(), shipClass.getStartHealth());
     }
 
     public Ship(int initiative, String shipType, int index, int shipSize, int speed, WeaponType weaponType, int weaponRange, int currentOrdnance, int startHealth) {
+        id = currentNumShips;
+        currentNumShips++;
         this.initiative = initiative;
         this.shipType = shipType;
         this.index = index;
@@ -35,21 +41,6 @@ public class Ship {
         for (int i = 0; i < shipSize; i++){
             segments[i] = new Segment(this, startHealth);
         }
-    }
-
-    @Override
-    public String toString() {
-        return "Ship{" +
-                "initiative=" + initiative +
-                ", shipType='" + shipType + '\'' +
-                ", index=" + index +
-                ", shipSize=" + shipSize +
-                ", speed=" + speed +
-                ", weaponType=" + weaponType +
-                ", weaponRange=" + weaponRange +
-                ", currentOrdnance=" + currentOrdnance +
-                ", segments=" + Arrays.toString(segments) +
-                '}';
     }
 
     public int getInitiative() {
@@ -128,7 +119,11 @@ public class Ship {
         return foundLocations;
     }
 
-    public String formattedLocationsInRange()
+    public String formattedLocationsInRange(Board board){
+        ArrayList<Point> locations = locationsInRange(board);
+        String formattedLocations = PointHelpers.pointArrayStrFormat(locations.toArray(new Point[0]));
+        return formattedLocations;
+    }
 
     public int getDirection(){
         Point first = segments[0].getLocation();
@@ -140,5 +135,9 @@ public class Ship {
     public Direction getDirectionType(){
         int direction = getDirection();
         return Direction.values()[direction];
+    }
+
+    public int getId() {
+        return id;
     }
 }
