@@ -1,7 +1,7 @@
 var coorSeparator = "_";
 var currentShipId = -1;
 
-var weaponTypes = [Gun, Aircraft, Torpedo, Depth, Mine];
+var weaponTypes = ['Gun', 'Aircraft', 'Torpedo', 'Depth', 'Mine'];
 
 function clicked(x, y, hasShip, shipId, shipType, initiative, weaponType, weaponRange, direction, locationsInRange){
     x = parseInt(x);
@@ -27,8 +27,8 @@ function clicked(x, y, hasShip, shipId, shipType, initiative, weaponType, weapon
     }
     $('#shipType').text(shipType);
     $('#initiative').text(initiative);
-    weaponType = parseInt(weaponType);
-    weaponType = weaponTypes[weaponType];
+    //weaponType = parseInt(weaponType);
+    //weaponType = weaponTypes[weaponType];
     $('#weaponType').text(weaponType);
     $('#weaponRange').text(weaponRange);
     $('#direction').text(direction);
