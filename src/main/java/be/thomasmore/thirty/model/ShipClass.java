@@ -62,6 +62,10 @@ public class ShipClass {
         return weaponType;
     }
 
+    public String getWeaponTypeString() {
+        return WeaponType.values()[weaponType].toString();
+    }
+
     public int getWeaponRange() {
         return weaponRange;
     }
