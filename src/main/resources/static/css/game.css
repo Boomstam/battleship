@@ -31,3 +31,7 @@
 .command:hover{
     cursor: pointer;
 }
+
+.homeImg{
+    width: 100vw;
+}

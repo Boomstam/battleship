@@ -1,0 +1,46 @@
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Ship Details</title>
+    <link rel="stylesheet" type="text/css" media="all"
+          th:href="@{/css/styles.css}" href="/css/styles.css" />
+</head>
+<body>
+<div>
+    <div th:replace="fragments/header :: header">Hier komt de header</div>
+    <div class="pageContent">
+        <div class="row1">
+            <div class="row1content">
+                <h2 th:unless="${ship != null}">Ship unknown</h2>
+                <div th:if="${ship != null}">
+                    <h2 th:text="|Ship: ${ship.shipType}|"/>
+                    <div class="infoLine">
+                        <p th:text="|Weapon range:|"/>
+                        <p th:text="|${ship.weaponRange}|"/>
+                    </div>
+                    <div class="cycleButtons">
+                        <a class="buttonLook menuButton" th:href="@{|/shipDetails/${previd}|}">Prev</a>
+                        <a class="buttonLook menuButton" th:href="@{|/shipDetails/${nextid}|}">Next</a>
+                    </div>
+                </div>
+                <!--<p th:unless="${venue.venueName}">venue: onbekend</p>-->
+                <!--
+                Addition formatting problems: on addition integer is regarded as a string:
+
+                <a th:href="@{|/venuedetails/${{venueindex - 1}}|}">Prev</a>
+                <a th:href="@{|/venuedetails/${${venueindex} + 1}|}">Next</a>
+
+                Alternative concatenation (same problem):
+
+                <a th:href="@{'/venuedetails/' + ${venueindex - 1}}">Prev</a>
+                <a th:href="@{'/venuedetails/' + ${venueindex - (-1)}}">Next</a>
+
+                Best to calculate boundaries in java!
+                -->
+            </div>
+        </div>
+    </div>
+    <div th:replace="fragments/footer :: footer">Hier komt de footer</div>
+</div>
+</body>
+</html>

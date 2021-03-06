@@ -6,10 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Optional;
 
 //https://stackoverflow.com/questions/34896877/call-controller-method-from-jsp-button-in-spring-mvc
 @Controller
@@ -54,4 +57,6 @@ public class GameController {
         model.addAttribute("started", true);
         return "game";
     }
+
+
 }
