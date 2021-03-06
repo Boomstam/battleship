@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Optional;
 
 @Controller
@@ -25,31 +26,29 @@ public class ShipopediaController {
         Collection shipColl = (Collection)ships;
         model.addAttribute("numShips", shipColl.size());
         model.addAttribute("ships", ships);
+        model.addAttribute("allShips", ships);
         model.addAttribute("filter", false);
         return "shipopedia";
     }
 
-    @GetMapping("/shipopedia/filter")
-    public String shipopediaWithFilter(@RequestParam(required = false) String type,
-                                       @RequestParam(required = false) Integer size,
-                                       Model model) {
-        Iterable<ShipClass> ships = shipRepository.findAll();
-        Collection shipColl = (Collection)ships;
-        model.addAttribute("numShips", shipColl.size());
-        model.addAttribute("ships", ships);
-        model.addAttribute("filter", true);
-        return "shipopedia";
-    }
-
-    @GetMapping("shipopedia/filter/{keyword}")
-    public String shipopediaKeyword(Model model, @RequestParam(required = false) String keyword) {
-        //filter = ShowHideToggler.oppositeFilter(filter);
-        //model.addAttribute("filter", filter);
-        Iterable<ShipClass> ships = shipRepository.findByKeyword(keyword);
-        Collection shipColl = (Collection)ships;
+    @GetMapping({"/shipopedia/filter", "shipopedia/filter/{keyword}"})
+    public String shipopediaKeyword(Model model,
+                                    @RequestParam(required = false) String keyword,
+                                    @RequestParam(required = false) String shipTypeSelect) {
+        Iterable<ShipClass> allShips = shipRepository.findAll();
+        model.addAttribute("allShips", allShips);
+        Collection shipColl = (Collection)allShips;
+        if(shipTypeSelect != null && shipTypeSelect.equals("All") == false){
+            keyword = shipTypeSelect;
+        }
+        if(keyword != null){
+            Iterable<ShipClass> ships = shipRepository.findByKeyword(keyword);
+            shipColl = (Collection)ships;
+        }
         model.addAttribute("numShips", shipColl.size());
         model.addAttribute("keyword", keyword);
-        model.addAttribute("ships", ships);
+        model.addAttribute("ships", shipColl);
+        model.addAttribute("filter", true);
         return "shipopedia";
     }
 

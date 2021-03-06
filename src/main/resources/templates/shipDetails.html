@@ -15,8 +15,36 @@
                 <div th:if="${ship != null}">
                     <h2 th:text="|Ship: ${ship.shipType}|"/>
                     <div class="infoLine">
+                        <p th:text="|Amount:|"/>
+                        <p th:text="|${ship.amount}|"/>
+                    </div>
+                    <div class="infoLine">
+                        <p th:text="|Size:|"/>
+                        <p th:text="|${ship.shipSize}|"/>
+                    </div>
+                    <div class="infoLine">
+                        <p th:text="|Initiative:|"/>
+                        <p th:text="|${ship.initiative}|"/>
+                    </div>
+                    <div class="infoLine">
+                        <p th:text="|Speed:|"/>
+                        <p th:text="|${ship.speed}|"/>
+                    </div>
+                    <div class="infoLine">
+                        <p th:text="|Weapon type:|"/>
+                        <p th:text="|${ship.weaponType}|"/>
+                    </div>
+                    <div class="infoLine">
                         <p th:text="|Weapon range:|"/>
                         <p th:text="|${ship.weaponRange}|"/>
+                    </div>
+                    <div class="infoLine">
+                        <p th:text="|Ordnance:|"/>
+                        <p th:text="|${ship.ordnance}|"/>
+                    </div>
+                    <div class="infoLine">
+                        <p th:text="|Start health:|"/>
+                        <p th:text="|${ship.startHealth}|"/>
                     </div>
                     <div class="cycleButtons">
                         <a class="buttonLook menuButton" th:href="@{|/shipDetails/${previd}|}">Prev</a>

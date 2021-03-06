@@ -26,6 +26,20 @@
                         <label for="keyword" class="filtername">keyword</label>
                         <input type="text" id="keyword" name="keyword" th:value="${keyword}"> <span>search</span>
                     </div>
+                    <div class="onefilter">
+                        <label for="keyword" class="filtername">keyword</label>
+                        <select name="shipTypeSelect" id="shipTypeSelect" >
+                            <option>
+                                <span  value="All">All</span>
+                            </option>
+                            <option th:each="ship, status: ${allShips}">
+                                <span  th:value="${ship.shipType}" th:text="${ship.shipType}">Ship type</span>
+                            </option>
+                            <!--<option value="saab">Saab</option>
+                            <option value="opel">Opel</option>
+                            <option value="audi">Audi</option>-->
+                        </select>
+                    </div>
                 </form>
             </div>
         </div>

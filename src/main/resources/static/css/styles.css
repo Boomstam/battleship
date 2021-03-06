@@ -1,13 +1,13 @@
 :root {
-    --foregroundColor: #EDC7CF;
-    --mainBgColor: #6A8E7F;
-    --secondBgColor: #D0CFEC;
-    --textColor: #426D5C;
+    --foregroundColor: #D98555;
+    --mainBgColor: #4D5D73;
+    --secondBgColor: #99AABF;
+    --textColor: #F2CF8D;
     --homeTitleSize:60px;
     --pageTitleSize: 30px;
     --paragraphSize: 16px;
     --footerTextSize:11px;
-    --pageContentTopMargin: 150px;
+    --pageContentTopMargin: 100px;
     --pageContentLeftMargin: 40px;
     font-family: Bahnschrift, sans-serif;
 }
@@ -19,11 +19,11 @@ body{
 
 header{
     background-color: var(--mainBgColor);
-    margin: 0;
+    padding: 20px 50px;
     position: fixed;
     top: 0;
     width: 100vw;
-    padding-bottom: 20px;
+    z-index: 1;
 }
 
 footer{
@@ -74,6 +74,19 @@ img{
     text-decoration: none;
     text-align: center;
     box-shadow: 1px 1px 1px darkgrey;
+    cursor: pointer;
+}
+
+.buttonLook:hover{
+    opacity: 0.5;
+}
+
+.buttonLook:active{
+    transform: translateY(4px);
+}
+
+.menuButtons{
+    margin-left: 10px;
 }
 
 .menuButton{
@@ -91,6 +104,10 @@ img{
     padding: 1em;
 }
 
+.smallButton {
+    margin: 10px 10px 10px 0px;
+}
+
 .cycleButtons{
     display: flex;
 }
@@ -102,4 +119,13 @@ img{
 
 .infoLine p:first-child{
     float: left;
+}
+
+.navHeader{
+    z-index: 1;
+    top: 50px;
+}
+
+.homeImg{
+    width: 100vw;
 }

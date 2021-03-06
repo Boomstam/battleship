@@ -1,6 +1,8 @@
 var coorSeparator = "_";
 var currentShipId = -1;
 
+var weaponTypes = [Gun, Aircraft, Torpedo, Depth, Mine];
+
 function clicked(x, y, hasShip, shipId, shipType, initiative, weaponType, weaponRange, direction, locationsInRange){
     x = parseInt(x);
     y = parseInt(y);
@@ -16,7 +18,7 @@ function clicked(x, y, hasShip, shipId, shipType, initiative, weaponType, weapon
     $('#selectedTile').text(x + " " + y);
     if(hasShip === "true"){
         $('#hasShip').text("Ship");
-        $('#commandButtons').css("display", "inherit");
+        $('#commandButtons').css("display", "flex");
         currentShipId = parseInt(shipId);
     } else{
         $('#hasShip').text("Open ocean");
@@ -25,6 +27,8 @@ function clicked(x, y, hasShip, shipId, shipType, initiative, weaponType, weapon
     }
     $('#shipType').text(shipType);
     $('#initiative').text(initiative);
+    weaponType = parseInt(weaponType);
+    weaponType = weaponTypes[weaponType];
     $('#weaponType').text(weaponType);
     $('#weaponRange').text(weaponRange);
     $('#direction').text(direction);

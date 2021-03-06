@@ -6,8 +6,8 @@
 </head>
 <body>
 <div th:fragment="menu">
-    <header>
-        <h1>Battleship</h1>
+    <div th:replace="fragments/header :: header">Hier komt de header</div>
+    <header class="navHeader">
         <div class="menuButtons">
             <!--<a class="menuButton" href="/game/start">start</a>-->
             <form>

@@ -1,3 +1,7 @@
+.game{
+    margin: 150px 100px 5px 100px;
+}
+
 .board{
     display: grid;
     gap: 1px;
@@ -25,13 +29,14 @@
 }
 
 .command{
-    background: #D0CFEC;
     cursor: default;
-}
-.command:hover{
-    cursor: pointer;
+    margin-right: 10px;
 }
 
-.homeImg{
-    width: 100vw;
+.commandButtons{
+    display: flex;
+}
+
+.shipInfo{
+    margin: 5px 100px 50px;
 }

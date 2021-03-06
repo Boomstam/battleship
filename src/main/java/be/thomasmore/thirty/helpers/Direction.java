@@ -5,7 +5,7 @@ import java.util.Random;
 
 public enum Direction {
 
-    left, right, down, up;
+    Left, Right, Down, Up;
 
     private Point direction;
 
@@ -34,7 +34,7 @@ public enum Direction {
     }
 
     public static boolean isHorizontal(Direction direction){
-        return direction == Direction.left || direction == Direction.right;
+        return direction == Direction.Left || direction == Direction.Right;
     }
 
     public static Point[] perpendicularDirections(Direction direction){
