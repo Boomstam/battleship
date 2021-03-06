@@ -53,7 +53,7 @@ public class ShipopediaController {
         return "shipopedia";
     }
 
-    @GetMapping({"/shipdetails", "/shipdetails/{idString}"})
+    @GetMapping({"/shipDetails", "/shipDetails/{idString}"})
     public String shipDetails(Model model, @PathVariable(required = false) String idString) {
         int id = -1;
         try {

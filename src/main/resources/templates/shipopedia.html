@@ -33,7 +33,7 @@
             <h2>Ships</h2>
             <div class="shipopedia">
                 <div th:each="ship, status: ${ships}">
-                    <a class="buttonLook mediumButton" th:href="@{'/shipopedia/'+${status.index + 1}}">
+                    <a class="buttonLook mediumButton" th:href="@{'/shipDetails/'+${status.index + 1}}">
                         <span th:text="${ship.shipType}">ship type</span>
                     </a>
                 </div>
