@@ -9,9 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Optional;
+import java.util.*;
 
 @Controller
 public class ShipopediaController {
@@ -34,7 +32,9 @@ public class ShipopediaController {
     @GetMapping({"/shipopedia/filter", "shipopedia/filter/{keyword}"})
     public String shipopediaKeyword(Model model,
                                     @RequestParam(required = false) String keyword,
-                                    @RequestParam(required = false) String shipTypeSelect) {
+                                    @RequestParam(required = false) String shipTypeSelect,
+                                    @RequestParam(required = false) String sortDirection,
+                                    @RequestParam(required = false) String propertySelect) {
         Iterable<ShipClass> allShips = shipRepository.findAll();
         model.addAttribute("allShips", allShips);
         Collection shipColl = (Collection)allShips;
@@ -45,6 +45,16 @@ public class ShipopediaController {
             Iterable<ShipClass> ships = shipRepository.findByKeyword(keyword);
             shipColl = (Collection)ships;
         }
+        /*List shipList = new ArrayList(shipColl);
+        if (propertySelect != null) {
+            switch (propertySelect){
+                case "Initiative":
+                    shipList.sort(Comparator.comparing(ShipClass::getInitiative));
+                case "Amount":
+                    shipList.sort(Comparator.comparing(ShipClass::getAmount));
+            }
+        }
+        model.addAttribute("shipProperties", ShipClass.sortableProperties);*/
         model.addAttribute("numShips", shipColl.size());
         model.addAttribute("keyword", keyword);
         model.addAttribute("ships", shipColl);

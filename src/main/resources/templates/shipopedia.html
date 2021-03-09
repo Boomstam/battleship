@@ -35,11 +35,19 @@
                             <option th:each="ship, status: ${allShips}">
                                 <span  th:value="${ship.shipType}" th:text="${ship.shipType}">Ship type</span>
                             </option>
-                            <!--<option value="saab">Saab</option>
-                            <option value="opel">Opel</option>
-                            <option value="audi">Audi</option>-->
                         </select>
                     </div>
+                    <!--<div class="onefilter">
+                        <input type="radio" id="asc" name="sortDirection" value="ascending" checked="checked">
+                        <label for="asc">Ascending</label>
+                        <input type="radio" id="desc" name="sortDirection" value="descending">
+                        <label for="desc">Descending</label>
+                        <select name="propertySelect" id="propertySelect" >
+                            <option th:each="prop, status: ${shipProperties}">
+                                <span  th:value="${prop}" th:text="${prop}">Property name</span>
+                            </option>
+                        </select>
+                    </div>-->
                 </form>
             </div>
         </div>

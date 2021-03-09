@@ -29,8 +29,7 @@
 }
 
 .command{
-    cursor: default;
-    margin-right: 10px;
+    padding: 5px 10px 5px 10px;
 }
 
 .commandButtons{
@@ -39,4 +38,20 @@
 
 .shipInfo{
     margin: 5px 100px 50px;
+}
+
+.menuForm{
+    margin-left: 20vw;
+}
+
+.formElement{
+    margin-top: 20px;
+}
+
+.startGameButton{
+    margin-left: 25%;
+}
+
+.filtername{
+    margin-left:75px;
 }

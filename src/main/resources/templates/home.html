@@ -5,10 +5,15 @@
     <title>Homepagina</title>
     <link rel="stylesheet" type="text/css" media="all"
           th:href="@{/css/styles.css}" href="/css/styles.css" />
+    <link th:href="@{http://fonts.googleapis.com/css?family=MedievalSharp}"
+          rel='stylesheet' type='text/css' />
 </head>
 <body>
 <div th:replace="fragments/header :: header">Hier komt de header</div>
-<img class="homeImg" src="../static/img/party.png" th:src="@{img/battleship.jpg}" alt="Image of a battleship"/>
+
+    <img class="homeImg" src="../static/img/battleship.png" th:src="@{img/battleship.png}" alt="Image of a battleship"/>
+        <h1 class="homeTitle">BATTLESHIP</h1>
+</div>
 <div th:replace="fragments/footer :: footer">Hier komt de footer</div>
 </body>
 </html>

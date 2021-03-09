@@ -3,15 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <title>Header</title>
+    <link th:href="@{http://fonts.googleapis.com/css?family=Calibri}"
+          rel='stylesheet' type='text/css' />
 </head>
 <body>
 <div th:fragment="header">
-    <header>
+    <header class="mainHeader">
         <div class="navButtons">
-            <a class="menuButton buttonLook" href="/home">home</a>
-            <a class="menuButton buttonLook" href="/game">game</a>
-            <a class="menuButton buttonLook" href="/shipopedia">shipopedia</a>
-            <a class="menuButton buttonLook" href="/about">about</a>
+            <a class="menuButton buttonLook" href="/home">Home</a>
+            <a class="menuButton buttonLook" href="/game">Game</a>
+            <a class="menuButton buttonLook" href="/shipopedia">Shipopedia</a>
+            <a class="menuButton buttonLook" href="/about">About</a>
         </div>
     </header>
 </div>

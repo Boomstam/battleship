@@ -15,21 +15,7 @@ public class ShipClass {
     private int ordnance;
     private int startHealth;
 
-    public ShipClass(){
-
-    }
-
-    public ShipClass(int initiative, String shipType, int amount, int shipSize, int weaponType, int weaponRange, int ordnance, int startHealth){
-        this.initiative = initiative;
-        this.shipType = shipType;
-        this.amount = amount;
-        this.shipSize = shipSize;
-        this.speed = speed;
-        this.weaponType = weaponType;
-        this.weaponRange = weaponRange;
-        this.ordnance = ordnance;
-        this.startHealth = startHealth;
-    }
+    public static final String sortableProperties[] = {"Initiative", "Amount", "Size", "Speed", "Range", "Ordnance", "Health"};
 
     public String getShipType() {
         return shipType;
