@@ -8,6 +8,10 @@
 <div th:fragment="infoFragment">
     <script src="../static/js/commandTransmitter.js" type="text/javascript" th:src="@{/js/commandTransmitter.js}"></script>
     <div class="shipInfo" th:if="${started}">
+        <div class="nextTurn" th:unless="${turn == null}">
+            <div th:text="'Turn ' + ${turn}"/>
+            <a class="buttonLook" th:href="@{|/game/${turn + 1}|}">Next Turn</a>
+        </div>
         <div id="selectedTile">No tile selected </div>
         <div id="hasShip"></div>
         <div id="commandButtons" class="commandButtons" style="display: none">

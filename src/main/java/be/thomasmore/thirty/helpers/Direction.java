@@ -16,6 +16,23 @@ public enum Direction {
             new Point(0, 1),
     };
 
+    public static Point[] getNeighbors(Point point){
+        Point[] neighbors = new Point[directions.length];
+        for(int dirIndex = 0; dirIndex < directions.length; dirIndex++){
+            Point dir = directions[dirIndex];
+            Point neighbor = new Point(point.x + dir.x, point.y + dir.y);
+            neighbors[dirIndex] = neighbor;
+        }
+        return neighbors;
+    }
+
+    public static Point getNeighbor(Point point, Direction direction){
+        int dirIndex = direction.ordinal();
+        Point dir = directions[dirIndex];
+        Point neighbor = new Point(point.x + dir.x, point.y + dir.y);
+        return neighbor;
+    }
+
     public static Point nextDirection(){
         Random rand = new Random();
         int nextIndex = rand.nextInt(Direction.directions.length);

@@ -19,6 +19,8 @@ public class Ship {
     private int currentOrdnance;
     private Segment[] segments;
 
+    private static final int visibleRange = 3;
+
     private static int currentNumShips = 0;
 
     public Ship(ShipClass shipClass, int index) {
@@ -79,21 +81,21 @@ public class Ship {
         currentOrdnance = currentOrdnance--;
     }
 
-    public void lift(){
+    public void move(boolean halfThrottle){
+
+    }
+
+    public Point[] visibleLocations(){
+        ArrayList<Point> locations = new ArrayList<>();
         for(Segment segment : segments){
-            if(segment.getTile() != null){
-                segment.getTile().removeShip();
-                segment.setTile(null);
-            }
+             Point point = segment.getLocation();
+             locations.add(point);
         }
-    }
+        for(int i = 0; i < visibleRange; i++){
 
-    public void setSegments(Segment[] segments){
-        this.segments = segments;
-    }
-
-    public void setSegmentTile(Tile tile, int i){
-        this.segments[i].setTile(tile);
+        }
+        Point[] locationArray = (Point[]) locations.toArray();
+        return locationArray;
     }
 
     public Segment[] getSegments(){
@@ -139,5 +141,13 @@ public class Ship {
 
     public int getId() {
         return id;
+    }
+
+    @Override
+    public String toString() {
+        return "Ship{" +
+                "id=" + id +
+                ", shipType='" + shipType + '\'' +
+                '}';
     }
 }
