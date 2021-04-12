@@ -1,7 +1,7 @@
 var coorSeparator = "_";
 var currentShipId = -1;
 
-var weaponTypes = ['Gun', 'Aircraft', 'Torpedo', 'Depth', 'Mine'];
+//var weaponTypes = ['Gun', 'Aircraft', 'Torpedo', 'Depth', 'Mine'];
 
 var currentLocationsInRange = [];
 

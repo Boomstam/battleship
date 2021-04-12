@@ -5,22 +5,35 @@ import java.util.Random;
 
 public enum Direction {
 
-    Left, Right, Down, Up;
+    Left(-1, 0), Right(1, 0), Down(0, -1), Up(0, 1);
 
-    private Point direction;
+    private Point vector;
 
-    public final static Point[] directions = {
-            new Point(-1, 0),
-            new Point(1, 0),
-            new Point(0, -1),
-            new Point(0, 1),
-    };
+    Direction(int x, int y) {
+        this.vector = new Point(x, y);
+    }
+
+    private static int numDirs(){
+        int numDirs = Direction.values().length;
+        return numDirs;
+    }
+
+    private static Direction getDirection(int index){
+        Direction dirVal = Direction.values()[index];
+        return dirVal;
+    }
+
+    private static Point getVector(int index){
+        Direction dirVal = getDirection(index);
+        Point vect = dirVal.getVector();
+        return vect;
+    }
 
     public static Point[] getNeighbors(Point point){
-        Point[] neighbors = new Point[directions.length];
-        for(int dirIndex = 0; dirIndex < directions.length; dirIndex++){
-            Point dir = directions[dirIndex];
-            Point neighbor = new Point(point.x + dir.x, point.y + dir.y);
+        Point[] neighbors = new Point[numDirs()];
+        for(int dirIndex = 0; dirIndex < numDirs(); dirIndex++){
+            Direction dir = getDirection(dirIndex);
+            Point neighbor = getNeighbor(point, dir);
             neighbors[dirIndex] = neighbor;
         }
         return neighbors;
@@ -28,23 +41,24 @@ public enum Direction {
 
     public static Point getNeighbor(Point point, Direction direction){
         int dirIndex = direction.ordinal();
-        Point dir = directions[dirIndex];
-        Point neighbor = new Point(point.x + dir.x, point.y + dir.y);
+        Point vect = getVector(dirIndex);
+        Point neighbor = new Point(point.x + vect.x, point.y + vect.y);
         return neighbor;
     }
 
     public static Point nextDirection(){
         Random rand = new Random();
-        int nextIndex = rand.nextInt(Direction.directions.length);
-        Point direction = Direction.directions[nextIndex];
+        int nextIndex = rand.nextInt(numDirs());
+        Point direction = getVector(nextIndex);
         return direction;
     }
 
     public static int getDirectionTo(Point from, Point to){
         Point difference = new Point(to.x - from.x, to.y - from.y);
-        for(int i = 0; i < Direction.directions.length; i++){
-            if(Direction.directions[i].equals(difference)){
-                return i;
+        for(int dirIndex = 0; dirIndex < numDirs(); dirIndex++){
+            Point vect = getVector(dirIndex);
+            if(vect.equals(difference)){
+                return dirIndex;
             }
         }
         return -1;
@@ -56,8 +70,12 @@ public enum Direction {
 
     public static Point[] perpendicularDirections(Direction direction){
         if(isHorizontal(direction)){
-            return new Point[]{ directions[2], directions[3] };
+            return new Point[]{ getVector(2), getVector(3) };
         }
-        return new Point[]{ directions[0], directions[1] };
+        return new Point[]{ getVector(0), getVector(1) };
+    }
+
+    public Point getVector() {
+        return vector;
     }
 }

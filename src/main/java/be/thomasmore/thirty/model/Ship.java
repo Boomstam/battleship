@@ -6,6 +6,7 @@ import be.thomasmore.thirty.helpers.PointHelpers;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 
 public class Ship {
     private int id;
@@ -19,7 +20,8 @@ public class Ship {
     private int currentOrdnance;
     private Segment[] segments;
 
-    private static final int visibleRange = 3;
+    private static final int visibleRange = 2;
+    private static final int patrolRange = 4;
 
     private static int currentNumShips = 0;
 
@@ -85,14 +87,23 @@ public class Ship {
 
     }
 
-    public Point[] visibleLocations(){
-        ArrayList<Point> locations = new ArrayList<>();
+    public Point[] visibleLocations(boolean onPatrol){
+        HashSet<Point> locations = new HashSet<>();
         for(Segment segment : segments){
              Point point = segment.getLocation();
              locations.add(point);
         }
-        for(int i = 0; i < visibleRange; i++){
-
+        int range = onPatrol ? patrolRange : visibleRange;
+        Point[] currentLocations = (Point[]) locations.toArray();
+        for(int i = 0; i < range; i++){
+            for(Point point : currentLocations){
+                Point[] neighbors = Direction.getNeighbors(point);
+                for(Point neighbor : neighbors){
+                    if(locations.contains(neighbor) == false){
+                        locations.add(neighbor);
+                    }
+                }
+            }
         }
         Point[] locationArray = (Point[]) locations.toArray();
         return locationArray;

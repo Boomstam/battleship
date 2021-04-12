@@ -38,11 +38,11 @@ public class GameController {
     public void handleCommand(@RequestParam("shipId") float shipId, @RequestParam("commandIndex") float commandIndex){
         int id = (int)shipId;
         Command command = Command.values ()[(int)commandIndex];
-        //System.out.print("handle command:" + idInt + "_" + commandIndexInt);
+        System.out.print("handle command:" + id + "_" + commandIndex);
         commands.put(id, command);
     }
 
-    @GetMapping("/game/{turn}")
+    @GetMapping("/game/turn/{turn}")
     public String nextTurn(@PathVariable(required = false) String turn, Model model) {
         if(turn != null){
             try {
