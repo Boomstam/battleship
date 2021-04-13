@@ -14,27 +14,28 @@
         </div>
         <div id="selectedTile">No tile selected </div>
         <div id="hasShip"></div>
+        <div class="shipDetails">
+            <div id="shipType"></div>
+            <div id="initiative"></div>
+            <div id="weaponType"></div>
+            <div id="weaponRange"></div>
+            <div id="direction"></div>
 
-        <div id="shipType"></div>
-        <div id="initiative"></div>
-        <div id="weaponType"></div>
-        <div id="weaponRange"></div>
-        <div id="direction"></div>
-
-        <div id="commandButtons" class="commandButtons" style="display: none">
-            <div id="commandType" th:each="commandType, status: ${commands}"
-                 th:data-parameter1="${status.index}"
-                 th:onclick="transmitCommand(this.getAttribute('data-parameter1'));">
-                <div th:classappend="${status.index == 0} ? selectedCommand : ''" class="commandType buttonLook smallButton" th:text="${commandType}">
+            <div id="commandButtons" class="commandButtons" style="display: none">
+                <div id="command" th:each="command, status: ${commands}"
+                     th:data-parameter1="${status.index}"
+                     th:onclick="transmitCommand(this.getAttribute('data-parameter1'));">
+                    <div th:classappend="${status.index == 0} ? selectedCommand : ''" class="command buttonLook smallButton" th:text="${command}">
+                    </div>
+                </div>
+            </div>
+            <div class="targetInfoContainer">
+                <div class="targetLabel">
+                    Target: NONE
                 </div>
             </div>
         </div>
 
-        <div class="targetInfoContainer">
-            <div class="targetLabel">
-                Target: NONE
-            </div>
-        </div>
     </div>
 </div>
 </body>

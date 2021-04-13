@@ -1,9 +1,7 @@
-var coorSeparator = "_";
-var currentShipId = -1;
-var lastCommandIndex = 5;
-//var weaponTypes = ['Gun', 'Aircraft', 'Torpedo', 'Depth', 'Mine'];
-
-var currentLocationsInRange = [];
+const coorSeparator = "_";
+const lastCommandIndex = 5;
+let currentShipId = -1;
+let currentLocationsInRange = [];
 
 function tileElementID(location) {
     let coors = location.split('_');
@@ -53,68 +51,35 @@ function clicked(x, y, hasShip, shipId, shipType, initiative, weaponType, weapon
     let $clickedTile = $(tileId({ "x": x, "y": y} )).parent();
     let isLocationInRange = $clickedTile.hasClass('tileInRange');
     if(targetingEnabled && isLocationInRange){
+        console.log("targeting location in range");
+        setTarget($clickedTile);
         return;
     } else {
         targetingEnabled = false;
     }
-    $.ajax({
-        url : 'tileClick',
-        method : 'GET',
-        data: { x: x, y: y},
-        async : true,
-        complete : function(data) {
-            //console.log(data.responseText);
-        }
-    });
     $('#selectedTile').text(x + " " + y);
     if(hasShip === "true"){
-        $('#hasShip').text("Ship");
-        $('#commandButtons').css("display", "flex");
-        $('.target').removeClass('target');
-        currentShipId = parseInt(shipId);
-        let commandFound = false;
-        for(const shipCommand of shipCommands){
-            if(shipCommand.shipID === currentShipId) {
-                layoutSelectedCommand(shipCommand.commandIndex);
-                if (shipCommand.commandIndex === lastCommandIndex) {
-                    for (const shipTarget of shipTargets) {
-                        if (shipTarget.shipID === currentShipId) {
-                            let existingTargetID = '#' + shipTarget.targetID;
-                            $(existingTargetID).parent().addClass('target');
-                            break;
-                        }
-                    }
-                }
-                commandFound = true;
-                break;
-            }
+        shipId = parseInt(shipId);
+        if(currentShipId === shipId){
+            return;
         }
-        if(commandFound === false){
-            layoutSelectedCommand(0);
-        }
+        shipClicked(shipId);
+
+        $('.shipDetails').show();
+
+        $('#shipType').text(shipType);
+        $('#initiative').text(initiative);
+        $('#weaponType').text(weaponType);
+        $('#weaponRange').text(weaponRange);
+        $('#direction').text(direction);
     } else{
         $('#hasShip').text("Open ocean");
         $('#commandButtons').css("display", "none");
         $('.target').removeClass('target');
+        $('.shipDetails').hide();
         restoreTileContent();
         currentShipId = -1;
     }
-    //let commandFound = false;
-    /*for(const shipCommand of shipCommands){
-        if(shipCommand.shipID === currentShipId) {
-            layoutSelectedCommand(shipCommand.commandIndex);
-            //commandFound = true;
-            break;
-        }
-    }*/
-    /*if(commandFound === false){
-        layoutSelectedCommand(0);
-    }*/
-    $('#shipType').text(shipType);
-    $('#initiative').text(initiative);
-    $('#weaponType').text(weaponType);
-    $('#weaponRange').text(weaponRange);
-    $('#direction').text(direction);
     if(locationsInRange === null){
         //console.log('locationsNull');
     } else{
@@ -122,6 +87,45 @@ function clicked(x, y, hasShip, shipId, shipType, initiative, weaponType, weapon
         restoreTileContent();
         saveCurrentLocationsInRange(locationsInRange);
         changeTileContent(locationsInRange, 'x');
+        setTargetsInRange();
+    }
+}
+
+function shipClicked(shipId) {
+    $('#hasShip').text("Ship");
+    $('#commandButtons').css("display", "flex");
+    $('.target').removeClass('target');
+    currentShipId = shipId;
+    let commandFound = false;
+    for (const shipCommand of shipCommands) {
+        if (shipCommand.shipID === currentShipId) {
+            layoutSelectedCommand(shipCommand.commandIndex);
+            if (shipCommand.commandIndex === lastCommandIndex) {
+                for (const shipTarget of shipTargets) {
+                    if (shipTarget.shipID === currentShipId) {
+                        let existingTargetID = '#' + shipTarget.targetID;
+                        $(existingTargetID).parent().addClass('target');
+                        break;
+                    }
+                }
+            }
+            commandFound = true;
+            break;
+        }
+    }
+    if (commandFound === false) {
+        layoutSelectedCommand(0);
+    }
+}
+
+function setTargetsInRange(){
+    for (const shipCommand of shipCommands) {
+        if (shipCommand.shipID === currentShipId) {
+            if (shipCommand.commandIndex === lastCommandIndex) {
+                $('.tileInRange').addClass('targetInRange');
+                return;
+            }
+        }
     }
 }
 
@@ -129,11 +133,3 @@ function tileId(location){
     let id = "#" + location.x + coorSeparator + location.y;
     return id;
 }
-
-/*function shipSelected(locationsInRange){
-    let length = locationsInRange.length;
-    let tile1 = locationsInRange[0];
-    let tile2 = locationsInRange[1];
-    console.log('length' + length);
-    console.log(tile1  + '_' + tile2);
-}*/

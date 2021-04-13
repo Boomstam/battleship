@@ -1,6 +1,6 @@
-var shipCommands = [];
-var shipTargets = [];
-var targetingEnabled = false;
+let shipCommands = [];
+let shipTargets = [];
+let targetingEnabled = false;
 
 function transmitCommand(commandIndex){
     commandIndex = parseInt(commandIndex);
@@ -60,40 +60,35 @@ function layoutSelectedCommand(commandIndex){
 function disableTargeting(){
     targetingEnabled = false;
     $('.targetInRange').removeClass('targetInRange');
-    unbindTargetClicks();
 }
 
 function enableTargeting(){
     targetingEnabled = true;
     $('.tileInRange').addClass('targetInRange');
-    bindTargetClicks();
+    //bindTargetClicks();
 }
 
-function bindTargetClicks(){
+/*function bindTargetClicks(){
     $('.tileInRange').click(function (){
-        console.log('click target');
-        setTarget($(this));
+        $tileInRange = $(this);
+        //console.log('click target');
+        setTarget($tileInRange);
     });
-}
-
-function unbindTargetClicks(){
-    //$('.tileInRange').prop("onclick", null).off("click");
-    $('.tileInRange').attr("onclick", "").unbind("click");
-    /*$('.tileInRange').click(function (){
-    });*/
-}
+}*/
 
 function setTarget($targetElement){
     if(targetingEnabled == false){
         return;
     }
-    $targetElement.addClass('target');
-    let id = $targetElement.find('.tileContent').attr('id');
+    let id = $($targetElement).find('.tileContent').attr('id');
+    console.log('id_' + id);
+    //return if not target in range class?
     let targetExists = false;
     for(const shipTarget of shipTargets){
         if(shipTarget.shipID === currentShipId){
             let existingTargetID = '#' + shipTarget.targetID;
             $(existingTargetID).parent().removeClass('target');
+            $($targetElement).addClass('target');
 
             shipTarget.targetID = id;
             targetExists = true;
@@ -101,6 +96,7 @@ function setTarget($targetElement){
         }
     }
     if(targetExists === false){
+        $($targetElement).addClass('target');
         shipTargets.push( { "shipID": currentShipId, "targetID": id } );
     }
     sendTargetCommand(id);

@@ -20,20 +20,10 @@ public class GameController {
     private Board board;
     private ShipCreator shipCreator = new ShipCreator();
     private CommandExecuter commandExecuter = new CommandExecuter();
-    private GameManager gameManager = new GameManager();
     private int imgSize = 20;
-    private Point currentLocation = new Point(0, 0);
-    private HashMap<Integer, CommandType> commands = new HashMap<>();
+    private HashMap<Integer, Command> commands = new HashMap<>();
     private ArrayList<Ship> ships;
     private int turn = 1;
-
-    @GetMapping(value="/tileClick")
-    public void tileClick(@RequestParam("x") float rawX, @RequestParam("y") float rawY){
-        int x = (int)rawX;
-        int y = (int)rawY;
-        System.out.print("clicked tile:" + x + "_" + y);
-        currentLocation.setLocation(x, y);
-    }
 
     @GetMapping(value="/handleCommand")
     public void handleCommand(@RequestParam("shipId") float shipId, @RequestParam("commandIndex") float commandIndex,
@@ -41,12 +31,27 @@ public class GameController {
         int id = (int)shipId;
         CommandType commandType = CommandType.values ()[(int)commandIndex];
         System.out.print("handle command:" + id + "_" + commandIndex);
+        Command command = null;
         if(targetID == null){
             System.out.print("null");
+            command = new Command(commandType);
         } else {
             System.out.print(targetID);
+            try {
+                if(commandType != CommandType.Fire){
+                    throw new Exception("There was a target specified for a non-fire command_" +
+                            targetID + "_" + commandType);
+                }
+                String[] coors = targetID.split("_");
+                int x = Integer.parseInt(coors[0]);
+                int y = Integer.parseInt(coors[1]);
+                Tile tile = board.getTileAt(x, y);
+                command = new Command(commandType, tile);
+            } catch(Exception e){
+                e.printStackTrace();
+            }
         }
-        commands.put(id, commandType);
+        commands.put(id, command);
     }
 
     @GetMapping("/game/turn/{turn}")
