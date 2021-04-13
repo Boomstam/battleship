@@ -23,17 +23,24 @@ public class GameController {
     private HashMap<Integer, Command> commands = new HashMap<>();
     private ArrayList<Ship> ships;
     private int turn = 1;
+    private boolean gameStarted = false;
 
     @GetMapping(value="/handleCommand")
     public void handleCommand(@RequestParam("shipId") float shipId, @RequestParam("commandIndex") float commandIndex,
                               @RequestParam(value ="targetID", required = false) String targetID){
         int id = (int)shipId;
+        Ship ship = null;
+        try{
+            ship = getById(id);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
         CommandType commandType = CommandType.values ()[(int)commandIndex];
         System.out.print("handle command:" + id + "_" + commandIndex);
         Command command = null;
         if(targetID == null){
             System.out.print("null");
-            command = new Command(commandType);
+            command = new Command(ship, commandType);
         } else {
             System.out.print(targetID);
             try {
@@ -45,7 +52,7 @@ public class GameController {
                 int x = Integer.parseInt(coors[0]);
                 int y = Integer.parseInt(coors[1]);
                 Tile tile = board.getTileAt(x, y);
-                command = new Command(commandType, tile);
+                command = new Command(ship, commandType, tile);
             } catch(Exception e){
                 e.printStackTrace();
             }
@@ -53,37 +60,34 @@ public class GameController {
         commands.put(id, command);
     }
 
-    @GetMapping("/game/turn/{turn}")
-    public String nextTurn(@PathVariable(required = false) String turn, Model model) {
-        if(turn != null){
-            try {
-                this.turn = Integer.parseInt(turn);
-            } catch (NumberFormatException e){
-                e.printStackTrace();
+    @GetMapping("/game")
+    public String nextTurn(@RequestParam(required = false) Integer width,
+                           @RequestParam(required = false) Integer height,
+                           Model model) {
+        if((width != null)){
+            startGame(width, height, model);
+        } else {
+            if(gameStarted == false){
+                model.addAttribute("started", false);
+            } else {
+                turn = turn + 1;
+                commandExecuter.executeCommands(commands.values(), board);
+                commands.clear();
+                updateGameModel(model, board);
             }
         }
-        commandExecuter.executeCommands(commands, board, ships);
-        commands.clear();
-        updateGameModel(model, board);
         return "game";
     }
 
-    @GetMapping("/game")
-    public String start(@RequestParam(required = false) Integer width,
-                        @RequestParam(required = false) Integer height,
-                        Model model) {
+    private void startGame(Integer width, Integer height, Model model) {
         commands = new HashMap<>();
-        if(width == null || height == null){
-            model.addAttribute("started", false);
-            return "game";
-        }
         Iterable<ShipClass> shipClasses = shipRepository.findAll();
         board = new Board(width, height);
         ships = shipCreator.getShips(shipClasses, board);
         Ship[] shipsArray = ships.toArray(new Ship[ships.size()]);
         board.setShips(shipsArray);
         updateGameModel(model, board);
-        return "game";
+        gameStarted = true;
     }
 
     private void updateGameModel(Model model, Board board){
@@ -93,5 +97,14 @@ public class GameController {
         model.addAttribute("turn", turn);
         model.addAttribute("started", true);
         model.addAttribute("tileSize", imgSize);
+    }
+
+    private Ship getById(int id) throws Exception {
+        for(Ship ship : ships){
+            if(ship.getId() == id){
+                return ship;
+            }
+        }
+        throw new Exception("Ship not found_" + id);
     }
 }

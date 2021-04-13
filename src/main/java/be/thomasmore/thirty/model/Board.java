@@ -1,7 +1,6 @@
 package be.thomasmore.thirty.model;
 
 import be.thomasmore.thirty.helpers.Direction;
-import org.thymeleaf.standard.expression.GreaterOrEqualToExpression;
 
 import java.awt.*;
 import java.util.*;
@@ -90,10 +89,18 @@ public class Board {
             Point location = segmentLocations[i];
             try {
                 Tile tile = tileMap.get(location);
+                if(tile.hasSegment()){
+                    if(tile.getSegment().getShip().equals(ship) == false){
+                        throw new Exception("There is already another ship at this location_" + tile.toString());
+                    }
+                }
+                if(segment.getTile() != null){
+                    segment.getTile().setSegment(null);
+                }
                 segment.setTile(tile);
                 tile.setSegment(segment);
             } catch (Exception e){
-                throw new Exception("Can't place ship, segment location out of bounds " + segment);
+                throw new Exception(e.getMessage());
             }
         }
     }
@@ -112,7 +119,7 @@ public class Board {
             if(tile.hasSegment()){
                 continue;
             }
-            Point direction = Direction.nextDirection();
+            Point direction = Direction.randomDirection();
             Point[] segments = segmentLocations(point, direction, size);
             if(segments != null){
                 return segments;

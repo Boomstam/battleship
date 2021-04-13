@@ -10,7 +10,7 @@
     <div class="shipInfo" th:if="${started}">
         <div class="nextTurn" th:unless="${turn == null}">
             <div  th:text="'Turn ' + ${turn}"/>
-            <a class="buttonLook nextTurnButton" th:href="@{|/game/turn/${turn + 1}|}">Next Turn</a>
+            <a class="buttonLook nextTurnButton" th:href="@{|/game|}">Next Turn</a>
         </div>
         <div id="selectedTile">No tile selected </div>
         <div id="hasShip"></div>

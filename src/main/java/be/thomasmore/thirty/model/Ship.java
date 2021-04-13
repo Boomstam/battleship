@@ -7,6 +7,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Objects;
 
 public class Ship {
     private int id;
@@ -85,7 +86,7 @@ public class Ship {
         }
         int range = onPatrol ? patrolRange : visibleRange;
         for(int i = 0; i < range; i++){
-            HashSet<Point> currentLocations = new HashSet<>(); //locations.toArrayL(new Point[locations.size()]);
+            HashSet<Point> currentLocations = new HashSet<>();
             for(Point point : locations){
                 Point[] neighbors = Direction.getNeighbors(point);
                 for(Point neighbor : neighbors){
@@ -156,10 +157,14 @@ public class Ship {
     public Player getPlayer() {
         return player;
     }
-/*
-    public int getPlayerIndex() {
-        return player.ordinal();
-    }*/
+
+    public Point[] getSegmentLocations(){
+        Point[] locations = new Point[shipSize];
+        for(int i = 0; i < shipSize; i++){
+            locations[i] = segments[i].getLocation();
+        }
+        return locations;
+    }
 
     public Action getAction() {
         return action;
@@ -170,9 +175,23 @@ public class Ship {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Ship ship = (Ship) o;
+        return id == ship.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
+    @Override
     public String toString() {
         return "Ship{" +
                 "id=" + id +
+                "initiative=" + initiative +
                 ", shipType='" + shipType + '\'' +
                 '}';
     }

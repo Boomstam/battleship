@@ -46,12 +46,18 @@ public enum Direction {
         return neighbor;
     }
 
-    public static Point nextDirection(){
+    public static Point randomDirection(){
         Random rand = new Random();
         int nextIndex = rand.nextInt(numDirs());
         Point direction = getVector(nextIndex);
         return direction;
     }
+
+    /*public static Point nextDirection(){
+        int nextIndex = rand.nextInt(numDirs());
+        Point direction = getVector(nextIndex);
+        return direction;
+    }*/
 
     public static int getDirectionTo(Point from, Point to){
         Point difference = new Point(to.x - from.x, to.y - from.y);
