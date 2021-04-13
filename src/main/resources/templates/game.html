@@ -51,9 +51,11 @@
              th:id="${tile.locationStr()}"
              class="tileContent"
              th:classappend="${board.hasShipAt(tile.location) ?
-             (board.getShipAt(tile.location).playerIndex == 0 ? 'ship player_1' : 'ship player_2')
-             : 'water'}"
-             th:text="${board.hasShipAt(tile.location) ? '-' : '~'}">
+                (board.getShipAt(tile.location).playerIndex == 0 ? 'ship player_1' : 'ship player_2')
+                : 'water'}"
+             th:text="${board.hasShipAt(tile.location) ?
+             (board.getSegmentAt(tile.location).isFirst() ? 'o' : '-')
+             : '~'}">
         </div>
     </div>
     </div>

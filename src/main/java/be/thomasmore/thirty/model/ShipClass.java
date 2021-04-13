@@ -12,10 +12,10 @@ public class ShipClass {
     private int speed;
     private int weaponType;
     private int weaponRange;
-    private int ordnance;
+    //private int ordnance;
     private int startHealth;
 
-    public static final String sortableProperties[] = {"Initiative", "Amount", "Size", "Speed", "Range", "Ordnance", "Health"};
+    //public static final String sortableProperties[] = {"Initiative", "Amount", "Size", "Speed", "Range", "Health"};
 
     public String getShipType() {
         return shipType;
@@ -39,7 +39,6 @@ public class ShipClass {
                 ", speed=" + speed +
                 ", weaponType=" + weaponType +
                 ", weaponRange=" + weaponRange +
-                ", ordnance=" + ordnance +
                 ", startHealth=" + startHealth +
                 '}';
     }
@@ -56,13 +55,13 @@ public class ShipClass {
         return weaponRange;
     }
 
-    public int getOrdnance() {
+    /*public int getOrdnance() {
         return ordnance;
     }
 
     public void setOrdnance(int ordnance) {
         this.ordnance = ordnance;
-    }
+    }*/
 
     public int getStartHealth() {
         return startHealth;

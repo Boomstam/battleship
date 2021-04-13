@@ -6,7 +6,6 @@ import java.util.Map;
 
 public class CommandExecuter {
     public void executeCommand(HashMap<Integer, Command> commands, Board board, ArrayList<Ship> ships){
-
         for(Map.Entry<Integer, Command> entry : commands.entrySet()){
             Integer id = entry.getKey();
             Command command = entry.getValue();

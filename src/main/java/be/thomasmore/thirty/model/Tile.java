@@ -9,6 +9,7 @@ public class Tile {
 
     private Point location;
     private Segment segment;
+    private boolean hasMine;
 
     public Tile(int x, int y) {
         location = new Point(x, y);
@@ -16,6 +17,32 @@ public class Tile {
 
     public Point getLocation() {
         return location;
+    }
+
+    public Segment getSegment() {
+        return segment;
+    }
+
+    public void setSegment(Segment segment) {
+        this.segment = segment;
+    }
+
+    public boolean hasSegment(){
+        if(segment == null){
+            return false;
+        }
+        return true;
+    }
+    public boolean hasMine() {
+        return hasMine;
+    }
+
+    public void setHasMine(boolean hasMine) {
+        this.hasMine = hasMine;
+    }
+
+    public String locationStr(){
+        return PointHelpers.pointStrFormat(location);
     }
 
     @Override
@@ -34,28 +61,5 @@ public class Tile {
     @Override
     public int hashCode() {
         return Objects.hash(location);
-    }
-
-    public Segment getSegment() {
-        return segment;
-    }
-
-    public void setSegment(Segment segment) {
-        this.segment = segment;
-    }
-
-    public boolean hasSegment(){
-        if(segment == null){
-            return false;
-        }
-        return true;
-    }
-
-    public void removeShip(){
-        segment = null;
-    }
-
-    public String locationStr(){
-        return PointHelpers.pointStrFormat(location);
     }
 }

@@ -78,9 +78,9 @@ public class GameController {
             model.addAttribute("started", false);
             return "game";
         }
-        board = new Board(width, height);
         Iterable<ShipClass> shipClasses = shipRepository.findAll();
         ships = shipCreator.getShips(shipClasses, board);
+        board = new Board(width, height, ships.toArray(new Ship[0]));
         updateGameModel(model, board);
         return "game";
     }

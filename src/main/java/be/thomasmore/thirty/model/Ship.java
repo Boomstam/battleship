@@ -17,9 +17,9 @@ public class Ship {
     private int speed;
     private WeaponType weaponType;
     private int weaponRange;
-    private int currentOrdnance;
     private Segment[] segments;
     private Player player;
+    private Action action;
 
     private static final int visibleRange = 2;
     private static final int patrolRange = 4;
@@ -28,11 +28,11 @@ public class Ship {
 
     public Ship(ShipClass shipClass, int index, Player player) {
         this(shipClass.getInitiative(), shipClass.getShipType(), index, shipClass.getShipSize(), shipClass.getSpeed(), WeaponType.values()[shipClass.getWeaponType()],
-                shipClass.getWeaponRange(), shipClass.getOrdnance(), shipClass.getStartHealth());
+                shipClass.getWeaponRange(), shipClass.getStartHealth());
         this.player = player;
     }
 
-    public Ship(int initiative, String shipType, int index, int shipSize, int speed, WeaponType weaponType, int weaponRange, int currentOrdnance, int startHealth) {
+    public Ship(int initiative, String shipType, int index, int shipSize, int speed, WeaponType weaponType, int weaponRange, int startHealth) {
         id = currentNumShips;
         currentNumShips++;
         this.initiative = initiative;
@@ -42,7 +42,6 @@ public class Ship {
         this.speed = speed;
         this.weaponType = weaponType;
         this.weaponRange = weaponRange;
-        this.currentOrdnance = currentOrdnance;
         segments = new Segment[shipSize];
         for (int i = 0; i < shipSize; i++){
             segments[i] = new Segment(this, startHealth);
@@ -77,17 +76,17 @@ public class Ship {
         return weaponRange;
     }
 
-    public int getCurrentOrdnance() {
+    /*public int getCurrentOrdnance() {
         return currentOrdnance;
     }
 
     public void decrementOrdnance() {
         currentOrdnance = currentOrdnance--;
-    }
+    }*/
 
-    public void move(boolean halfThrottle){
+    /*public void move(boolean halfThrottle){
 
-    }
+    }*/
 
     public Point[] visibleLocations(boolean onPatrol){
         HashSet<Point> locations = new HashSet<>();
@@ -162,6 +161,14 @@ public class Ship {
 
     public int getPlayerIndex() {
         return player.ordinal();
+    }
+
+    public Action getAction() {
+        return action;
+    }
+
+    public void setAction(Action action) {
+        this.action = action;
     }
 
     @Override

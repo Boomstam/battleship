@@ -16,10 +16,12 @@ public class Board {
 
     private Map<Point, Tile> tileMap;
     private Tile[] tiles;
+    private Ship[] ships;
 
-    public Board(int width, int height){
+    public Board(int width, int height, Ship[] ships){
         this.width = width;
         this.height = height;
+        this.ships = ships;
         createTiles();
     }
 
@@ -55,14 +57,12 @@ public class Board {
     }
 
     public Segment getSegmentAt(Point location){
-        //Point location = new Point(x, y);
         Tile tile = tileMap.get(location);
         return tile.getSegment();
     }
 
     public Ship getShipAt(Point location){
         Segment segment = getSegmentAt(location);
-        //Point location = new Point(x, y);
         Ship ship = segment.getShip();
         return ship;
     }
@@ -138,5 +138,12 @@ public class Board {
 
     private Point translated(Point origin, Point translation){
         return new Point(origin.x + translation.x, origin.y + translation.y);
+    }
+
+    public boolean visibleToPlayer(){
+        for(Ship ship : ships){
+
+            qd
+        }
     }
 }

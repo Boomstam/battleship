@@ -1,6 +1,7 @@
 package be.thomasmore.thirty.model;
 
 import java.awt.*;
+import java.util.Objects;
 
 public class Segment {
     private Ship ship;
@@ -20,19 +21,50 @@ public class Segment {
         this.tile = tile;
     }
 
-    @Override
-    public String toString() {
-        return "Segment{" +
-                "tile=" + tile +
-                ", health=" + health +
-                '}';
-    }
-
     public Point getLocation(){
         return tile.getLocation();
     }
 
     public Ship getShip() {
         return ship;
+    }
+
+    public boolean isFirst(){
+        boolean isFirst = (getSegmentIndex() == 0);
+        return isFirst;
+    }
+
+    private int getSegmentIndex(){
+        Segment[] segments = ship.getSegments();
+        int numSegments = segments.length;
+        for(int i = 0; i < numSegments; i++){
+            Segment segment = segments[i];
+            if(equals(segment)){
+                return i;
+            }
+        }
+        System.out.println("Segment index not found!_" + toString());
+        return -1;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Segment segment = (Segment) o;
+        return Objects.equals(tile, segment.tile);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(tile);
+    }
+
+    @Override
+    public String toString() {
+        return "Segment{" +
+                "tile=" + tile +
+                ", health=" + health +
+                '}';
     }
 }
