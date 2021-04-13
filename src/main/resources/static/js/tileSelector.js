@@ -1,6 +1,8 @@
 $( document ).ready(function() {
     $('.board').css('pointer-events', 'auto');
     $('.board').css('opacity', '1');
+    $('.shipInfo').css('pointer-events', 'auto');
+    $('.shipInfo').css('opacity', '1');
 });
 
 const coorSeparator = "_";

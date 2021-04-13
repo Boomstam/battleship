@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.awt.*;
 import java.util.*;
 
 //https://stackoverflow.com/questions/34896877/call-controller-method-from-jsp-button-in-spring-mvc
@@ -63,7 +62,7 @@ public class GameController {
                 e.printStackTrace();
             }
         }
-        commandExecuter.executeCommand(commands, board, ships);
+        commandExecuter.executeCommands(commands, board, ships);
         commands.clear();
         updateGameModel(model, board);
         return "game";
