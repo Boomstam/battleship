@@ -29,8 +29,10 @@ public class CommandExecuter {
             case TurnRight:
                 break;
             case HalfThrottle:
+                move(ship, true, board);
                 break;
             case FullThrottle:
+                move(ship, false, board);
                 break;
             default: System.out.println(command.getCommandType() + " not found");
         }
@@ -61,15 +63,17 @@ public class CommandExecuter {
     }
 
     private boolean tryMoveForward(Ship ship, Board board){
-        Point[] segmentLocations = ship.getSegmentLocations().clone();
+        int numSegments = ship.getShipSize();
+        Point[] oldSegmentLocations = ship.getSegmentLocations();
+        Point[] newSegmentLocations = new Point[numSegments];
         Point direction = ship.getDirectionType().getVector();
-        for(int i = 0; i < segmentLocations.length; i++){
-            Point newLocation = segmentLocations[i];
+        for(int i = 0; i < numSegments; i++){
+            Point newLocation = (Point)oldSegmentLocations[i].clone();
             newLocation.translate(direction.x, direction.y);
-            segmentLocations[i] = newLocation;
+            newSegmentLocations[i] = newLocation;
         }
         try{
-            board.place(ship, segmentLocations);
+            board.place(ship, newSegmentLocations);
             return true;
         } catch (Exception e){
             return false;

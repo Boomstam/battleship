@@ -133,6 +133,10 @@ public class Ship {
     public int getDirection(){
         Point first = segments[0].getLocation();
         Point second = segments[1].getLocation();
+        /*System.out.println("getting direction_" + first + "_" + second);
+        for(Segment segment : segments){
+            System.out.println("segment_" + segment);
+        }*/
         int direction = Direction.getDirectionTo(first, second);
         return direction;
     }

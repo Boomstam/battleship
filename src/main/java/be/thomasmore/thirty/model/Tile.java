@@ -52,14 +52,16 @@ public class Tile {
 
     @Override
     public boolean equals(Object o) {
+        HashedPoint hashedPoint = new HashedPoint(location);
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Tile tile = (Tile) o;
-        return location.equals(tile.location);
+        HashedPoint otherHashedPoint = new HashedPoint(tile.location);
+        return hashedPoint.equals(otherHashedPoint);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(location);
+        return Objects.hash(new HashedPoint(location));
     }
 }

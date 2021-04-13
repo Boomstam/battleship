@@ -16,7 +16,7 @@ public class Board {
     private int width;
     private int height;
 
-    private Map<Point, Tile> tileMap;
+    private Map<HashedPoint, Tile> tileMap;
     private Tile[] tiles;
 
     private Ship[] ships;
@@ -35,31 +35,35 @@ public class Board {
     }
 
     public Tile getTileAt(Point location) throws Exception {
-        if(tileMap.containsKey(location) == false){
+        HashedPoint hashedPoint = new HashedPoint(location);
+        if(tileMap.containsKey(hashedPoint) == false){
             throw new Exception("Tile " + location + " not found");
         }
-        return tileMap.get(location);
+        return tileMap.get(hashedPoint);
     }
 
     public boolean hasTileAt(Point location){
-        return tileMap.containsKey(location);
+        HashedPoint hashedPoint = new HashedPoint(location);
+        return tileMap.containsKey(hashedPoint);
     }
 
     public Tile getTileAt(int x, int y){
-        Point location = new Point(x, y);
-        return tileMap.get(location);
+        HashedPoint hashedPoint = new HashedPoint(x, y);
+        return tileMap.get(hashedPoint);
     }
 
     public boolean hasShipAt(Point location)throws Exception {
-        if(tileMap.containsKey(location) == false){
+        HashedPoint hashedPoint = new HashedPoint(location);
+        if(tileMap.containsKey(hashedPoint) == false){
             throw new Exception("Tile " + location + " doesn't exist");
         }
-        Tile tile = tileMap.get(location);
+        Tile tile = tileMap.get(hashedPoint);
         return tile.hasSegment();
     }
 
     public Segment getSegmentAt(Point location){
-        Tile tile = tileMap.get(location);
+        HashedPoint hashedPoint = new HashedPoint(location);
+        Tile tile = tileMap.get(hashedPoint);
         return tile.getSegment();
     }
 
@@ -76,7 +80,8 @@ public class Board {
         for (int y = 0; y < height; y++){
             for (int x = 0; x < width; x++){
                 Tile tile = new Tile(x, y);
-                tileMap.put(tile.getLocation(), tile);
+                HashedPoint hashedPoint = new HashedPoint(tile.getLocation());
+                tileMap.put(hashedPoint, tile);
                 tiles[tileIndex] = tile;
                 tileIndex++;
             }
@@ -84,24 +89,38 @@ public class Board {
     }
 
     public void place(Ship ship, Point[] segmentLocations) throws Exception {
-        for(int i = 0; i < segmentLocations.length; i++){
-            Segment segment = ship.getSegments()[i];
+        int numSegments = ship.getShipSize();
+        for(int i = 0; i < numSegments; i++){
             Point location = segmentLocations[i];
             try {
-                Tile tile = tileMap.get(location);
+                HashedPoint hashedPoint = new HashedPoint(location);
+                if(tileMap.containsKey(hashedPoint) == false){
+                    throw new Exception("Location doesn't exist_" + location.toString());
+                }
+                Tile tile = tileMap.get(hashedPoint);
                 if(tile.hasSegment()){
                     if(tile.getSegment().getShip().equals(ship) == false){
                         throw new Exception("There is already another ship at this location_" + tile.toString());
                     }
                 }
-                if(segment.getTile() != null){
-                    segment.getTile().setSegment(null);
-                }
-                segment.setTile(tile);
-                tile.setSegment(segment);
             } catch (Exception e){
                 throw new Exception(e.getMessage());
             }
+        }
+        for(int i = 0; i < numSegments; i++) {
+            Segment segment = ship.getSegments()[i];
+            if(segment.getTile() != null){
+                segment.getTile().setSegment(null);
+            }
+        }
+        for(int i = 0; i < numSegments; i++) {
+            Segment segment = ship.getSegments()[i];
+            Point location = segmentLocations[i];
+            HashedPoint hashedPoint = new HashedPoint(location);
+            Tile tile = tileMap.get(hashedPoint);
+
+            segment.setTile(tile);
+            tile.setSegment(segment);
         }
     }
 
@@ -167,6 +186,7 @@ public class Board {
         } catch (Exception e){
             e.printStackTrace();
         }
+        System.out.println("NO TILE CONTENT FOUND");
         return "";
     }
 /*
@@ -191,6 +211,7 @@ ${board.hasShipAt(tile.location) ?
         } catch (Exception e){
             e.printStackTrace();
         }
+        System.out.println("NO TILE CLASSES FOUND");
         return "";
     }
 

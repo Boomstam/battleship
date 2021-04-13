@@ -67,6 +67,7 @@ public enum Direction {
                 return dirIndex;
             }
         }
+        System.out.println("can't find direction_" + from + "_" + to);
         return -1;
     }
 
