@@ -20,9 +20,10 @@ public class Ship {
     private Segment[] segments;
     private Player player;
     private Action action;
+    private boolean onPatrol;
 
-    private static final int visibleRange = 2;
-    private static final int patrolRange = 4;
+    private static final int visibleRange = 4;
+    private static final int patrolRange = 6;
 
     private static int currentNumShips = 0;
 
@@ -76,37 +77,26 @@ public class Ship {
         return weaponRange;
     }
 
-    /*public int getCurrentOrdnance() {
-        return currentOrdnance;
-    }
-
-    public void decrementOrdnance() {
-        currentOrdnance = currentOrdnance--;
-    }*/
-
-    /*public void move(boolean halfThrottle){
-
-    }*/
-
-    public Point[] visibleLocations(boolean onPatrol){
+    public Point[] visibleLocations(){
         HashSet<Point> locations = new HashSet<>();
         for(Segment segment : segments){
              Point point = segment.getLocation();
              locations.add(point);
         }
         int range = onPatrol ? patrolRange : visibleRange;
-        Point[] currentLocations = (Point[]) locations.toArray();
         for(int i = 0; i < range; i++){
-            for(Point point : currentLocations){
+            HashSet<Point> currentLocations = new HashSet<>(); //locations.toArrayL(new Point[locations.size()]);
+            for(Point point : locations){
                 Point[] neighbors = Direction.getNeighbors(point);
                 for(Point neighbor : neighbors){
-                    if(locations.contains(neighbor) == false){
-                        locations.add(neighbor);
+                    if(locations.contains(neighbor) == false && currentLocations.contains(neighbor) == false){
+                        currentLocations.add(neighbor);
                     }
                 }
             }
+            locations.addAll(currentLocations);
         }
-        Point[] locationArray = (Point[]) locations.toArray();
+        Point[] locationArray = locations.toArray(new Point[locations.size()]);
         return locationArray;
     }
 
@@ -151,6 +141,14 @@ public class Ship {
         return Direction.values()[direction];
     }
 
+    public boolean isOnPatrol() {
+        return onPatrol;
+    }
+
+    public void setOnPatrol(boolean onPatrol) {
+        this.onPatrol = onPatrol;
+    }
+
     public int getId() {
         return id;
     }
@@ -158,10 +156,10 @@ public class Ship {
     public Player getPlayer() {
         return player;
     }
-
+/*
     public int getPlayerIndex() {
         return player.ordinal();
-    }
+    }*/
 
     public Action getAction() {
         return action;

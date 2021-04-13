@@ -1,3 +1,8 @@
+$( document ).ready(function() {
+    $('.board').css('pointer-events', 'auto');
+    $('.board').css('opacity', '1');
+});
+
 const coorSeparator = "_";
 const lastCommandIndex = 5;
 let currentShipId = -1;
@@ -5,7 +10,7 @@ let currentLocationsInRange = [];
 
 function tileElementID(location) {
     let coors = location.split('_');
-    location = { x: coors[0], y: coors[1] };
+    location = {x: coors[0], y: coors[1]};
     let id = tileId(location);
     return id;
 }
@@ -39,26 +44,27 @@ function saveCurrentLocationsInRange(locationsInRange) {
         let id = tileElementID(location);
         let content = $(id).text();
         $(id).parent().addClass('tileInRange');
-        let locationAndContent = { location: location, content: content };
+        let locationAndContent = {location: location, content: content};
         currentLocationsInRange[i] = locationAndContent;
     }
 }
 
-function clicked(x, y, hasShip, shipId, shipType, initiative, weaponType, weaponRange, direction, locationsInRange){
+function clicked(x, y, hasShip, shipId, shipType, initiative, weaponType, weaponRange, direction, locationsInRange) {
     x = parseInt(x);
     y = parseInt(y);
-    let $clickedTile = $(tileId({ "x": x, "y": y} )).parent();
+    let $clickedTile = $(tileId({"x": x, "y": y})).parent();
     let isLocationInRange = $clickedTile.hasClass('tileInRange');
-    if(targetingEnabled && isLocationInRange){
+    let isInvisible = $clickedTile.hasClass('invisible');
+    if (targetingEnabled && isLocationInRange) {
         setTarget($clickedTile);
         return;
     } else {
         targetingEnabled = false;
     }
     $('#selectedTile').text(x + " " + y);
-    if(hasShip === "true"){
+    if (hasShip === "true" && isInvisible === false) {
         shipId = parseInt(shipId);
-        if(currentShipId === shipId){
+        if (currentShipId === shipId) {
             return;
         }
         shipClicked(shipId);
@@ -70,17 +76,21 @@ function clicked(x, y, hasShip, shipId, shipType, initiative, weaponType, weapon
         $('#weaponType').text(weaponType);
         $('#weaponRange').text(weaponRange);
         $('#direction').text(direction);
-    } else{
-        $('#hasShip').text("Open ocean");
+    } else {
+        if(isInvisible){
+            $('#hasShip').text("Open ocean");
+        } else {
+            $('#hasShip').text("Unknown");
+        }
         $('#commandButtons').css("display", "none");
         $('.target').removeClass('target');
         $('.shipDetails').hide();
         restoreTileContent();
         currentShipId = -1;
     }
-    if(locationsInRange === null){
+    if (locationsInRange === null) {
         //console.log('locationsNull');
-    } else{
+    } else {
         locationsInRange = locationsInRange.split('-');
         restoreTileContent();
         saveCurrentLocationsInRange(locationsInRange);
@@ -116,7 +126,7 @@ function shipClicked(shipId) {
     }
 }
 
-function setTargetsInRange(){
+function setTargetsInRange() {
     for (const shipCommand of shipCommands) {
         if (shipCommand.shipID === currentShipId) {
             if (shipCommand.commandIndex === lastCommandIndex) {
@@ -127,7 +137,7 @@ function setTargetsInRange(){
     }
 }
 
-function tileId(location){
+function tileId(location) {
     let id = "#" + location.x + coorSeparator + location.y;
     return id;
 }

@@ -5,6 +5,8 @@
 .board{
     display: grid;
     gap: 1px;
+    pointer-events: none;
+    opacity: 0.5;
 }
 
 .tile:hover{
@@ -22,6 +24,11 @@
 
 .water{
     background: royalblue;
+}
+
+.invisible{
+    background: darkblue;
+    color: var(--foregroundColor);
 }
 
 .ship{

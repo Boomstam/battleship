@@ -1,27 +1,30 @@
 package be.thomasmore.thirty.model;
 
 import be.thomasmore.thirty.helpers.Direction;
+import org.thymeleaf.standard.expression.GreaterOrEqualToExpression;
 
 import java.awt.*;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
+import java.util.List;
 
 public class Board {
 
     private final static int maxNumIterations = 9999;
+    private final static String ocean = "~", shipStart = "o", ship = "-", invisible = "~";
+    private final static String invisibleClass = "invisible", oceanClass = "water", shipClass ="ship",
+            player1Class = "player_1", player2Class = "player_2";
 
     private int width;
     private int height;
 
     private Map<Point, Tile> tileMap;
     private Tile[] tiles;
+
     private Ship[] ships;
 
-    public Board(int width, int height, Ship[] ships){
+    public Board(int width, int height){
         this.width = width;
         this.height = height;
-        this.ships = ships;
         createTiles();
     }
 
@@ -140,10 +143,69 @@ public class Board {
         return new Point(origin.x + translation.x, origin.y + translation.y);
     }
 
-    public boolean visibleToPlayer(){
-        for(Ship ship : ships){
-
-            qd
+    public String getTileContent(Point location){
+        if(isVisibleToPlayer(location) == false){
+            return invisible;
         }
+        try {
+            if(hasShipAt(location)){
+                if(getSegmentAt(location).isFirst()){
+                    return shipStart;
+                } else {
+                    return ship;
+                }
+            } else {
+                return ocean;
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return "";
+    }
+/*
+${board.hasShipAt(tile.location) ?
+                (board.getShipAt(tile.location).playerIndex == 0 ? 'ship player_1' : 'ship player_2')
+                : 'water'}
+ */
+    public String getTileClasses(Point location){
+        if(isVisibleToPlayer(location) == false){
+            return invisibleClass;
+        }
+        try {
+            if(hasShipAt(location)){
+                if(getShipAt(location).getPlayer() == Player.PLAYER_1){
+                    return shipClass + " " + player1Class;
+                } else {
+                    return shipClass + " " + player2Class;
+                }
+            } else {
+                return oceanClass;
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return "";
+    }
+
+    public boolean isVisibleToPlayer(Point location){
+        for(Ship ship : ships){
+            if(ship.getPlayer().isHuman() == false){
+                continue;
+            }
+            Point[] visibleLocations = ship.visibleLocations();
+            List<Point> locationsAsList = Arrays.asList(visibleLocations);
+            if(locationsAsList.contains(location)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void setShips(Ship[] ships) {
+        this.ships = ships;
+    }
+
+    public Ship[] getShips() {
+        return ships;
     }
 }
