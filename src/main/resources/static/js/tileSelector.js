@@ -22,7 +22,6 @@ function changeTileContent(locationsInRange, content) {
 
 function restoreTileContent() {
     let length = currentLocationsInRange.length;
-    console.log('restore tile content');
     $('.tileInRange').removeClass('tileInRange');
     $('.targetInRange').removeClass('targetInRange');
     for (let i = 0; i < length; i++) {
@@ -51,7 +50,6 @@ function clicked(x, y, hasShip, shipId, shipType, initiative, weaponType, weapon
     let $clickedTile = $(tileId({ "x": x, "y": y} )).parent();
     let isLocationInRange = $clickedTile.hasClass('tileInRange');
     if(targetingEnabled && isLocationInRange){
-        console.log("targeting location in range");
         setTarget($clickedTile);
         return;
     } else {

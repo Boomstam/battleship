@@ -15,7 +15,6 @@ function transmitCommand(commandIndex){
     if(commandExists === false){
         shipCommands.push( { "shipID": currentShipId, "commandIndex": commandIndex } );
     }
-    console.log("click transmit");
     $.ajax({
         url : 'handleCommand',
         method : 'GET',
@@ -29,9 +28,7 @@ function transmitCommand(commandIndex){
 }
 
 function layoutSelectedCommand(commandIndex){
-    console.log("click layout");
     let $commands = $('.command');
-    console.log("commands length_" + $commands.length);
     let numCommands = $commands.length;
     $('.targetInfoContainer').hide();
     for (let i = 0; i < numCommands; i++){
@@ -72,7 +69,6 @@ function setTarget($targetElement){
         return;
     }
     let id = $($targetElement).find('.tileContent').attr('id');
-    console.log('id_' + id);
     let targetExists = false;
     for(const shipTarget of shipTargets){
         if(shipTarget.shipID === currentShipId){
