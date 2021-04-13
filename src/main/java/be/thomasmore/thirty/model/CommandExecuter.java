@@ -5,12 +5,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CommandExecuter {
-    public void executeCommand(HashMap<Integer, Command> commands, Board board, ArrayList<Ship> ships){
-        for(Map.Entry<Integer, Command> entry : commands.entrySet()){
+    public void executeCommand(HashMap<Integer, CommandType> commands, Board board, ArrayList<Ship> ships){
+
+        for(Map.Entry<Integer, CommandType> entry : commands.entrySet()){
             Integer id = entry.getKey();
-            Command command = entry.getValue();
+            CommandType commandType = entry.getValue();
             Ship ship = ships.get(id);
-            System.out.println(command.toString() + ship.toString());
+            System.out.println(commandType.toString() + ship.toString());
         }
     }
 }

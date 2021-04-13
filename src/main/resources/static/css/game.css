@@ -7,11 +7,11 @@
     gap: 1px;
 }
 
-.tiles:hover{
+.tile:hover{
     opacity: 0.5;
 }
 
-.tile{
+.tileContent{
     width: 20px;
     heigth: 20px;
     /*padding-top: 20px;*/
@@ -25,7 +25,15 @@
 }
 
 .ship{
-    background: orangered;
+
+}
+
+.player_1{
+    background: var(--player1Color);
+}
+
+.player_2{
+    background: var(--player2Color);
 }
 
 .command{
@@ -39,10 +47,6 @@
 .shipInfo{
     margin: 5px 100px 50px;
 }
-
-/*.nextTurn{
-    margin-bottom: 150px;
-}*/
 
 .menuForm{
     margin-left: 20vw;
@@ -58,4 +62,34 @@
 
 .filtername{
     margin-left:75px;
+}
+
+.selectedCommand{
+    text-decoration: underline;
+    border: 2px solid var(--mainBgColor);
+}
+
+.targetInfoContainer{
+    display: none;
+}
+
+.targetLabel{
+    padding: 5px 20px;
+}
+
+.targetInRange:hover{
+    background-color: var(--targetInRangeColor);
+}
+
+.target{
+    background-color: var(--targetColor);
+    opacity: 0.6;
+}
+
+.nextTurn{
+    display: flex;
+}
+
+.nextTurnButton{
+    padding: 5px 50px;
 }

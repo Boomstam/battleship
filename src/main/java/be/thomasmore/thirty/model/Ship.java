@@ -19,15 +19,17 @@ public class Ship {
     private int weaponRange;
     private int currentOrdnance;
     private Segment[] segments;
+    private Player player;
 
     private static final int visibleRange = 2;
     private static final int patrolRange = 4;
 
     private static int currentNumShips = 0;
 
-    public Ship(ShipClass shipClass, int index) {
+    public Ship(ShipClass shipClass, int index, Player player) {
         this(shipClass.getInitiative(), shipClass.getShipType(), index, shipClass.getShipSize(), shipClass.getSpeed(), WeaponType.values()[shipClass.getWeaponType()],
                 shipClass.getWeaponRange(), shipClass.getOrdnance(), shipClass.getStartHealth());
+        this.player = player;
     }
 
     public Ship(int initiative, String shipType, int index, int shipSize, int speed, WeaponType weaponType, int weaponRange, int currentOrdnance, int startHealth) {
@@ -152,6 +154,14 @@ public class Ship {
 
     public int getId() {
         return id;
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public int getPlayerIndex() {
+        return player.ordinal();
     }
 
     @Override

@@ -3,7 +3,11 @@
     --mainBgColor: #364C59;
     --secondBgColor: #70818C;
     --textColor: #0F1D26;
-    --colorAccent:#401C0F;
+    --colorAccent: #401C0F;
+    --targetInRangeColor: green;
+    --targetColor: red;
+    --player1Color: orangered;
+    --player2Color: yellow;
     --homeTitleSize: 75px;
     --pageTitleSize: 30px;
     --paragraphSize: 16px;

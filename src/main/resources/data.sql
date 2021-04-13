@@ -1,10 +1,10 @@
 insert into SHIP_CLASS (
 INITIATIVE, SHIP_TYPE, AMOUNT, SHIP_SIZE, SPEED, WEAPON_TYPE, WEAPON_RANGE, ORDNANCE, START_HEALTH)
-values(1, 'Submarine', 2, 2, 4, 2, 20, 3, 1);
+values(1, 'Submarine', 1, 2, 4, 2, 20, 3, 1);
 
 insert into SHIP_CLASS (
 INITIATIVE, SHIP_TYPE, AMOUNT, SHIP_SIZE, SPEED, WEAPON_TYPE, WEAPON_RANGE, ORDNANCE, START_HEALTH)
-values(2, 'Frigate', 3, 2, 8, 3, 4, 6, 2);
+values(2, 'Frigate', 2, 2, 8, 3, 4, 6, 2);
 
 insert into SHIP_CLASS (
 INITIATIVE, SHIP_TYPE, AMOUNT, SHIP_SIZE, SPEED, WEAPON_TYPE, WEAPON_RANGE, ORDNANCE, START_HEALTH)
@@ -12,12 +12,12 @@ values(3, 'Carrier', 1, 4, 3, 1, 30, 2, 3);
 
 insert into SHIP_CLASS (
 INITIATIVE, SHIP_TYPE, AMOUNT, SHIP_SIZE, SPEED, WEAPON_TYPE, WEAPON_RANGE, ORDNANCE, START_HEALTH)
-values(4, 'Minelayer', 2, 2, 6, 4, 3, 10, 2);
+values(4, 'Minelayer', 1, 2, 6, 4, 3, 10, 2);
 
 insert into SHIP_CLASS (
 INITIATIVE, SHIP_TYPE, AMOUNT, SHIP_SIZE, SPEED, WEAPON_TYPE, WEAPON_RANGE, ORDNANCE, START_HEALTH)
-values(5, 'Destroyer', 4, 3, 6, 0, 8, 10, 2);
+values(5, 'Destroyer', 2, 3, 6, 0, 8, 10, 2);
 
 insert into SHIP_CLASS (
 INITIATIVE, SHIP_TYPE, AMOUNT, SHIP_SIZE, SPEED, WEAPON_TYPE, WEAPON_RANGE, ORDNANCE, START_HEALTH)
-values(6, 'Cruiser', 2, 4, 4, 0, 12, 15, 3);
+values(6, 'Cruiser', 1, 4, 4, 0, 12, 15, 3);

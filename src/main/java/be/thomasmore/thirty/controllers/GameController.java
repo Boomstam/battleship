@@ -20,9 +20,10 @@ public class GameController {
     private Board board;
     private ShipCreator shipCreator = new ShipCreator();
     private CommandExecuter commandExecuter = new CommandExecuter();
+    private GameManager gameManager = new GameManager();
     private int imgSize = 20;
     private Point currentLocation = new Point(0, 0);
-    private HashMap<Integer, Command> commands = new HashMap<>();
+    private HashMap<Integer, CommandType> commands = new HashMap<>();
     private ArrayList<Ship> ships;
     private int turn = 1;
 
@@ -35,11 +36,17 @@ public class GameController {
     }
 
     @GetMapping(value="/handleCommand")
-    public void handleCommand(@RequestParam("shipId") float shipId, @RequestParam("commandIndex") float commandIndex){
+    public void handleCommand(@RequestParam("shipId") float shipId, @RequestParam("commandIndex") float commandIndex,
+                              @RequestParam(value ="targetID", required = false) String targetID){
         int id = (int)shipId;
-        Command command = Command.values ()[(int)commandIndex];
+        CommandType commandType = CommandType.values ()[(int)commandIndex];
         System.out.print("handle command:" + id + "_" + commandIndex);
-        commands.put(id, command);
+        if(targetID == null){
+            System.out.print("null");
+        } else {
+            System.out.print(targetID);
+        }
+        commands.put(id, commandType);
     }
 
     @GetMapping("/game/turn/{turn}")
@@ -76,7 +83,7 @@ public class GameController {
     private void updateGameModel(Model model, Board board){
         model.addAttribute(board);
         model.addAttribute("ships", ships);
-        model.addAttribute("commands", Command.values());
+        model.addAttribute("commands", CommandType.values());
         model.addAttribute("turn", turn);
         model.addAttribute("started", true);
         model.addAttribute("tileSize", imgSize);

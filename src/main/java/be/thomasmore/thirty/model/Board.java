@@ -60,6 +60,13 @@ public class Board {
         return tile.getSegment();
     }
 
+    public Ship getShipAt(Point location){
+        Segment segment = getSegmentAt(location);
+        //Point location = new Point(x, y);
+        Ship ship = segment.getShip();
+        return ship;
+    }
+
     private void createTiles(){
         tileMap = new HashMap<>();
         tiles = new Tile[width * height];
@@ -88,13 +95,15 @@ public class Board {
         }
     }
 
-    public Point[] nextFreeShipSpace(int size) throws Exception {
+    public Point[] nextFreeShipSpace(int size, float minMapLimit, float maxMapLimit) throws Exception {
         Random rand = new Random();
         int iteration = 0;
+        int minY = Math.round(height * minMapLimit);
+        int range = Math.round(height * (maxMapLimit - minMapLimit));
         while (iteration < maxNumIterations){
             iteration++;
             int x = rand.nextInt(width);
-            int y = rand.nextInt(height);
+            int y = rand.nextInt(range) + minY;
             Point point = new Point(x, y);
             Tile tile = getTileAt(point);
             if(tile.hasSegment()){

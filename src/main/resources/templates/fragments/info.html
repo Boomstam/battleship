@@ -9,24 +9,32 @@
     <script src="../static/js/commandTransmitter.js" type="text/javascript" th:src="@{/js/commandTransmitter.js}"></script>
     <div class="shipInfo" th:if="${started}">
         <div class="nextTurn" th:unless="${turn == null}">
-            <div th:text="'Turn ' + ${turn}"/>
-            <a class="buttonLook" th:href="@{|/game/turn/${turn + 1}|}">Next Turn</a>
+            <div  th:text="'Turn ' + ${turn}"/>
+            <a class="buttonLook nextTurnButton" th:href="@{|/game/turn/${turn + 1}|}">Next Turn</a>
         </div>
         <div id="selectedTile">No tile selected </div>
         <div id="hasShip"></div>
-        <div id="commandButtons" class="commandButtons" style="display: none">
-            <div id="commands" th:each="command, status: ${commands}">
-                <div class="command buttonLook smallButton" th:text="${command}"
-                     th:data-parameter1="${status.index}"
-                     th:onclick="transmitCommand(this.getAttribute('data-parameter1'));">
-                </div>
-            </div>
-        </div>
+
         <div id="shipType"></div>
         <div id="initiative"></div>
         <div id="weaponType"></div>
         <div id="weaponRange"></div>
         <div id="direction"></div>
+
+        <div id="commandButtons" class="commandButtons" style="display: none">
+            <div id="commandType" th:each="commandType, status: ${commands}"
+                 th:data-parameter1="${status.index}"
+                 th:onclick="transmitCommand(this.getAttribute('data-parameter1'));">
+                <div th:classappend="${status.index == 0} ? selectedCommand : ''" class="commandType buttonLook smallButton" th:text="${commandType}">
+                </div>
+            </div>
+        </div>
+
+        <div class="targetInfoContainer">
+            <div class="targetLabel">
+                Target: NONE
+            </div>
+        </div>
     </div>
 </div>
 </body>

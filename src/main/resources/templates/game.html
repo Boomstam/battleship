@@ -17,7 +17,7 @@
           th:style="|grid-template-rows: repeat(${board.width}, ${tileSize}px);
         grid-template-columns: repeat(${board.height}, ${tileSize}px);|"
     th:if="${started}">
-    <div class="tiles" th:each="tile, status: ${board.tiles}">
+    <div class="tile" th:each="tile, status: ${board.tiles}">
         <div th:data-parameter1="${tile.location.x}"
              th:data-parameter2="${tile.location.y}"
              th:data-parameter3="${board.hasShipAt(tile.location)}"
@@ -35,6 +35,8 @@
                                    board.getSegmentAt(tile.location).ship.directionType : null}"
              th:data-parameter10="${board.hasShipAt(tile.location) == true ?
                                    board.getSegmentAt(tile.location).ship.formattedLocationsInRange(board) : null}"
+             th:data-parameter11="${board.hasShipAt(tile.location) == true ?
+                                   board.getSegmentAt(tile.location).ship.player : null}"
              th:onclick="clicked(this.getAttribute('data-parameter1'),
                                  this.getAttribute('data-parameter2'),
                                  this.getAttribute('data-parameter3'),
@@ -44,42 +46,14 @@
                                  this.getAttribute('data-parameter7'),
                                  this.getAttribute('data-parameter8'),
                                  this.getAttribute('data-parameter9'),
-                                 this.getAttribute('data-parameter10'));"
+                                 this.getAttribute('data-parameter10'),
+                                 this.getAttribute('data-parameter11'));"
              th:id="${tile.locationStr()}"
-             class="tile"
-             th:classappend="${board.hasShipAt(tile.location) ? 'ship' : 'water'}"
+             class="tileContent"
+             th:classappend="${board.hasShipAt(tile.location) ?
+             (board.getShipAt(tile.location).playerIndex == 0 ? 'ship player_1' : 'ship player_2')
+             : 'water'}"
              th:text="${board.hasShipAt(tile.location) ? '-' : '~'}">
-        <!--<div th:data-parameter1="${tile.location.x}"
-             th:data-parameter2="${tile.location.y}"
-             th:data-parameter3="${board.hasShipAt(tile.location)}"
-             th:data-parameter4="${board.hasShipAt(tile.location) == true ?
-                                   board.getSegmentAt(tile.location).ship.id : null}"
-             th:data-parameter5="${board.hasShipAt(tile.location) == true ?
-                                   board.getSegmentAt(tile.location).ship.shipType : null}"
-             th:data-parameter6="${board.hasShipAt(tile.location) == true ?
-                                   board.getSegmentAt(tile.location).ship.initiative : null}"
-             th:data-parameter7="${board.hasShipAt(tile.location) == true ?
-                                   board.getSegmentAt(tile.location).ship.weaponType : null}"
-             th:data-parameter8="${board.hasShipAt(tile.location) == true ?
-                                   board.getSegmentAt(tile.location).ship.weaponRange : null}"
-             th:data-parameter9="${board.hasShipAt(tile.location) == true ?
-                                   board.getSegmentAt(tile.location).ship.directionType : null}"
-             th:data-parameter10="${board.hasShipAt(tile.location) == true ?
-                                   board.getSegmentAt(tile.location).ship.formattedLocationsInRange(board) : null}"
-             th:onclick="clicked(this.getAttribute('data-parameter1'),
-                                 this.getAttribute('data-parameter2'),
-                                 this.getAttribute('data-parameter3'),
-                                 this.getAttribute('data-parameter4'),
-                                 this.getAttribute('data-parameter5'),
-                                 this.getAttribute('data-parameter6'),
-                                 this.getAttribute('data-parameter7'),
-                                 this.getAttribute('data-parameter8'),
-                                 this.getAttribute('data-parameter9'),
-                                 this.getAttribute('data-parameter10'));"
-             th:id="${tile.locationStr()}"
-             class="tile"
-             th:classappend="${board.hasShipAt(tile.location) ? 'ship' : 'water'}"
-             th:text="${board.hasShipAt(tile.location) ? '-' : '~'}">-->
         </div>
     </div>
     </div>
