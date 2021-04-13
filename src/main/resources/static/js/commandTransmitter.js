@@ -65,16 +65,7 @@ function disableTargeting(){
 function enableTargeting(){
     targetingEnabled = true;
     $('.tileInRange').addClass('targetInRange');
-    //bindTargetClicks();
 }
-
-/*function bindTargetClicks(){
-    $('.tileInRange').click(function (){
-        $tileInRange = $(this);
-        //console.log('click target');
-        setTarget($tileInRange);
-    });
-}*/
 
 function setTarget($targetElement){
     if(targetingEnabled == false){
@@ -82,7 +73,6 @@ function setTarget($targetElement){
     }
     let id = $($targetElement).find('.tileContent').attr('id');
     console.log('id_' + id);
-    //return if not target in range class?
     let targetExists = false;
     for(const shipTarget of shipTargets){
         if(shipTarget.shipID === currentShipId){
