@@ -85,6 +85,7 @@ function setTarget($targetElement){
         $($targetElement).addClass('target');
         shipTargets.push( { "shipID": currentShipId, "targetID": id } );
     }
+    $('.targetLabel').text("Target: " + id);
     sendTargetCommand(id);
 }
 

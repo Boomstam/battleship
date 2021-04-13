@@ -146,6 +146,14 @@ public class Ship {
         return Direction.values()[direction];
     }
 
+    public Direction getFormattedDirectionType(){
+        Direction directionType = getDirectionType();
+        if(Direction.isHorizontal(directionType) == false){
+            directionType = Direction.opposite(directionType);
+        }
+        return directionType;
+    }
+
     public boolean isOnPatrol() {
         return onPatrol;
     }

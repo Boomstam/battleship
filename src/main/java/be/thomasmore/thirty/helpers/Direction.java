@@ -53,12 +53,6 @@ public enum Direction {
         return direction;
     }
 
-    /*public static Point nextDirection(){
-        int nextIndex = rand.nextInt(numDirs());
-        Point direction = getVector(nextIndex);
-        return direction;
-    }*/
-
     public static int getDirectionTo(Point from, Point to){
         Point difference = new Point(to.x - from.x, to.y - from.y);
         for(int dirIndex = 0; dirIndex < numDirs(); dirIndex++){
@@ -73,6 +67,21 @@ public enum Direction {
 
     public static boolean isHorizontal(Direction direction){
         return direction == Direction.Left || direction == Direction.Right;
+    }
+
+    public static Direction opposite(Direction direction){
+        switch (direction){
+            case Left:
+                return Direction.Right;
+            case Right:
+                return Direction.Left;
+            case Down:
+                return Direction.Up;
+            case Up:
+                return Direction.Down;
+        }
+        System.out.println("Opposite not found_" + direction);
+        return null;
     }
 
     public static Point[] perpendicularDirections(Direction direction){

@@ -15,11 +15,29 @@
         <div id="selectedTile">No tile selected </div>
         <div id="hasShip"></div>
         <div class="shipDetails">
-            <div id="shipType"></div>
-            <div id="initiative"></div>
-            <div id="weaponType"></div>
-            <div id="weaponRange"></div>
-            <div id="direction"></div>
+
+            <div class="shipParameters">
+                <div class="shipParameter">
+                    <div class="paramLabel">Ship type: </div>
+                    <div id="shipType" class="param"></div>
+                </div>
+                <div class="shipParameter">
+                    <div class="paramLabel">Initiative: </div>
+                    <div id="initiative" class="param"></div>
+                </div>
+                <div class="shipParameter">
+                    <div class="paramLabel">Weapon type: </div>
+                    <div id="weaponType" class="param"></div>
+                </div>
+                <div class="shipParameter">
+                    <div class="paramLabel">Weapon range: </div>
+                    <div id="weaponRange" class="param"></div>
+                </div>
+                <div class="shipParameter">
+                    <div class="paramLabel">Direction: </div>
+                    <div id="direction" class="param"></div>
+                </div>
+            </div>
 
             <div id="commandButtons" class="commandButtons" style="display: none">
                 <div id="command" th:each="command, status: ${commands}"
@@ -29,6 +47,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="targetInfoContainer">
                 <div class="targetLabel">
                     Target: NONE

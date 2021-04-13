@@ -56,7 +56,7 @@ function clicked(x, y, hasShip, shipId, shipType, initiative, weaponType, weapon
     y = parseInt(y);
     let $clickedTile = $(tileId({"x": x, "y": y})).parent();
     let isLocationInRange = $clickedTile.hasClass('tileInRange');
-    let isInvisible = $clickedTile.hasClass('invisible');
+    let isInvisible = $clickedTile.find('.tileContent').hasClass('invisible');
     if (targetingEnabled && isLocationInRange) {
         setTarget($clickedTile);
         return;
@@ -79,7 +79,7 @@ function clicked(x, y, hasShip, shipId, shipType, initiative, weaponType, weapon
         $('#weaponRange').text(weaponRange);
         $('#direction').text(direction);
     } else {
-        if(isInvisible){
+        if(isInvisible === false){
             $('#hasShip').text("Open ocean");
         } else {
             $('#hasShip').text("Unknown");
@@ -102,7 +102,7 @@ function clicked(x, y, hasShip, shipId, shipType, initiative, weaponType, weapon
 }
 
 function shipClicked(shipId) {
-    $('#hasShip').text("Ship");
+    $('#hasShip').text("Ship Detected");
     $('#commandButtons').css("display", "flex");
     $('.target').removeClass('target');
     currentShipId = shipId;
@@ -115,6 +115,7 @@ function shipClicked(shipId) {
                     if (shipTarget.shipID === currentShipId) {
                         let existingTargetID = '#' + shipTarget.targetID;
                         $(existingTargetID).parent().addClass('target');
+                        $('.targetLabel').text("Target: " + shipTarget.targetID);
                         break;
                     }
                 }

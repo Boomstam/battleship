@@ -33,7 +33,7 @@
              th:data-parameter8="${board.hasShipAt(tile.location) == true ?
                                    board.getSegmentAt(tile.location).ship.weaponRange : null}"
              th:data-parameter9="${board.hasShipAt(tile.location) == true ?
-                                   board.getSegmentAt(tile.location).ship.directionType : null}"
+                                   board.getSegmentAt(tile.location).ship.formattedDirectionType : null}"
              th:data-parameter10="${board.hasShipAt(tile.location) == true ?
                                    board.getSegmentAt(tile.location).ship.formattedLocationsInRange(board) : null}"
              th:data-parameter11="${board.hasShipAt(tile.location) == true ?

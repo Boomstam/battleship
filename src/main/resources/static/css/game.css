@@ -32,10 +32,6 @@
     color: var(--foregroundColor);
 }
 
-.ship{
-
-}
-
 .player_1{
     background: var(--player1Color);
 }
@@ -98,8 +94,27 @@
 
 .nextTurn{
     display: flex;
+    margin-bottom: 10px;
+}
+
+.nextTurn:first-child{
+    margin-right: 50px;
+    font-size: 24px;
 }
 
 .nextTurnButton{
     padding: 5px 50px;
+}
+
+.shipDetails{
+    display: none;
+    float: right;
+}
+
+.shipParameter{
+    display: flex;
+}
+
+.paramLabel{
+    margin-right: 25px;
 }

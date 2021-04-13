@@ -189,11 +189,7 @@ public class Board {
         System.out.println("NO TILE CONTENT FOUND");
         return "";
     }
-/*
-${board.hasShipAt(tile.location) ?
-                (board.getShipAt(tile.location).playerIndex == 0 ? 'ship player_1' : 'ship player_2')
-                : 'water'}
- */
+
     public String getTileClasses(Point location){
         if(isVisibleToPlayer(location) == false){
             return invisibleClass;
