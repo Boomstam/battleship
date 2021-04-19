@@ -12,10 +12,7 @@ public class ShipClass {
     private int speed;
     private int weaponType;
     private int weaponRange;
-    //private int ordnance;
     private int startHealth;
-
-    //public static final String sortableProperties[] = {"Initiative", "Amount", "Size", "Speed", "Range", "Health"};
 
     public String getShipType() {
         return shipType;
@@ -27,20 +24,6 @@ public class ShipClass {
 
     public int getShipSize() {
         return shipSize;
-    }
-
-    @Override
-    public String toString() {
-        return "ShipClass{" +
-                "initiative=" + initiative +
-                ", shipType='" + shipType + '\'' +
-                ", amount=" + amount +
-                ", shipSize=" + shipSize +
-                ", speed=" + speed +
-                ", weaponType=" + weaponType +
-                ", weaponRange=" + weaponRange +
-                ", startHealth=" + startHealth +
-                '}';
     }
 
     public int getWeaponType() {
@@ -55,14 +38,6 @@ public class ShipClass {
         return weaponRange;
     }
 
-    /*public int getOrdnance() {
-        return ordnance;
-    }
-
-    public void setOrdnance(int ordnance) {
-        this.ordnance = ordnance;
-    }*/
-
     public int getStartHealth() {
         return startHealth;
     }
@@ -73,5 +48,19 @@ public class ShipClass {
 
     public int getInitiative() {
         return initiative;
+    }
+
+    @Override
+    public String toString() {
+        return "ShipClass{" +
+                "initiative=" + initiative +
+                ", shipType='" + shipType + '\'' +
+                ", amount=" + amount +
+                ", shipSize=" + shipSize +
+                ", speed=" + speed +
+                ", weaponType=" + weaponType +
+                ", weaponRange=" + weaponRange +
+                ", startHealth=" + startHealth +
+                '}';
     }
 }

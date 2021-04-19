@@ -6,6 +6,7 @@ import java.util.Objects;
 public class Segment {
     private Ship ship;
     private Tile tile;
+
     private int health;
 
     public Segment(Ship ship, int startHealth) {
@@ -29,9 +30,21 @@ public class Segment {
         return ship;
     }
 
+    public int getHealth() {
+        return health;
+    }
+
     public boolean isFirst(){
         boolean isFirst = (getSegmentIndex() == 0);
         return isFirst;
+    }
+
+    public boolean applyDamage(int damage){
+        health = health - damage;
+        if(health <= 0){
+            return true;
+        }
+        return false;
     }
 
     private int getSegmentIndex(){

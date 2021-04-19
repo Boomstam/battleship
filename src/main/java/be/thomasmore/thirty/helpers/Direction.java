@@ -1,16 +1,23 @@
 package be.thomasmore.thirty.helpers;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Random;
 
 public enum Direction {
 
-    Left(-1, 0), Right(1, 0), Down(0, -1), Up(0, 1);
+    Up(0, 1),  Right(1, 0), Down(0, -1), Left(-1, 0);
 
     private Point vector;
 
     Direction(int x, int y) {
         this.vector = new Point(x, y);
+    }
+
+    public Point getVector() {
+        return vector;
     }
 
     private static int numDirs(){
@@ -37,6 +44,15 @@ public enum Direction {
             neighbors[dirIndex] = neighbor;
         }
         return neighbors;
+    }
+
+    public static Point[] getNeighborsIncludingDiagonal(Point point){
+        Point[] neighbors = getNeighbors(point);
+        Point[] diagonalNeighbors = DiagonalDirection.getDiagonalNeighbors(point);
+        ArrayList<Point> all = new ArrayList<>();
+        all.addAll(Arrays.asList(neighbors));
+        all.addAll(Arrays.asList(diagonalNeighbors));
+        return all.toArray(new Point[0]);
     }
 
     public static Point getNeighbor(Point point, Direction direction){
@@ -86,12 +102,18 @@ public enum Direction {
 
     public static Point[] perpendicularDirections(Direction direction){
         if(isHorizontal(direction)){
-            return new Point[]{ getVector(2), getVector(3) };
+            return new Point[]{ Direction.Up.getVector(), Direction.Down.getVector() };
         }
-        return new Point[]{ getVector(0), getVector(1) };
+        return new Point[]{ Direction.Left.getVector(), Direction.Right.getVector() };
     }
 
-    public Point getVector() {
-        return vector;
+    public static Direction nextClockwise(Direction direction){
+        int dirIndex = (direction.ordinal() + 1) % numDirs();
+        return getDirection(dirIndex);
+    }
+
+    public static Direction nextCounterClockwise(Direction direction){
+        int dirIndex = (Math.abs(direction.ordinal() - 1)) % numDirs();
+        return getDirection(dirIndex);
     }
 }

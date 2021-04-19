@@ -71,6 +71,7 @@ public class GameController {
                 model.addAttribute("started", false);
             } else {
                 turn = turn + 1;
+                addDefaultCommands();
                 commandExecuter.executeCommands(commands.values(), board);
                 commands.clear();
                 updateGameModel(model, board);
@@ -106,5 +107,14 @@ public class GameController {
             }
         }
         throw new Exception("Ship not found_" + id);
+    }
+
+    private void addDefaultCommands(){
+        for(Ship ship : ships){
+            int id = ship.getId();
+            if(commands.containsKey(id) == false){
+                commands.put(id, new Command(ship, CommandType.Patrol));
+            }
+        }
     }
 }
